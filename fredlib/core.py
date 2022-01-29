@@ -14,6 +14,7 @@ class NotSupportedModelType(Exception):
     def __init__(self, model_type):
         super().__init__("ModelType not supported. Type used: " + model_type)
 
+
 class CategoryNotFound(Exception):
     def __init__(self, category_id):
         super().__init__("Category with id " + category_id + " not found")
