@@ -1,5 +1,6 @@
 # This file is for testing purposes only
 from _core import *
+from api import *
 api_key = "e4c748a06f5ed75a6277731745e18fcf"
 
 
@@ -48,4 +49,9 @@ def test_database():
         for obs in observables:
             print(obs)
     database.destroy()
-test_database()
+
+def test_api_children():
+    all_category = get_children_categories2(10,api_key)
+    for cat in all_category:
+        print(cat)
+test_api_children()

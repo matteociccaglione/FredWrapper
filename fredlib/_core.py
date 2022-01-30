@@ -18,17 +18,17 @@ _database_configuration = {"tables": ["series", "observables"],
 
 class BadRequestException(Exception):
     def __init__(self, status_code):
-        super().__init__("Request has failed with HTTP code: " + status_code)
+        super().__init__("Request has failed with HTTP code: " + str(status_code))
 
 
 class NotSupportedModelType(Exception):
     def __init__(self, model_type):
-        super().__init__("ModelType not supported. Type used: " + model_type)
+        super().__init__("ModelType not supported. Type used: " + str(model_type))
 
 
 class CategoryNotFound(Exception):
     def __init__(self, category_id):
-        super().__init__("Category with id " + category_id + " not found")
+        super().__init__("Category with id " + str(category_id) + " not found")
 
 
 class BadDatabaseQuery(Exception):
@@ -43,7 +43,7 @@ class NotSupportedOperation(Exception):
 
 class DatabaseWritingError(Exception):
     def __init__(self, query, error):
-        super().__init__("Query :" + query + " has failed with error:" + error)
+        super().__init__("Query :" + query + " has failed with error:" + str(error))
 
 
 class ModelType(enum.Enum):
@@ -245,11 +245,22 @@ class Database(DataManager):
         statement = "DELETE  FROM series WHERE series_id='" + series.series_id + "';"
         self._push(statement)
 
-    def update_series(self, series: Series):
+    def update_series(self, series: Series, observables: []):
         prev_series = self.get_series(series.category_id)
         if len(prev_series) != 0:
             self.delete_series(series)
         self.insert_series(series)
+        for obs in observables:
+            self.insert_observables(obs)
+
+    def get_single_series(self,series_id: int) -> Series:
+        statement = "SELECT * FROM series WHERE series_id ='"+series_id+"';"
+        rows = self._get(statement)
+        series = self._parse(ModelType.Series,rows)
+        if len(series) != 0:
+            return series[0]
+        else:
+            raise CategoryNotFound(series_id)
 
     def __del__(self):
         self.destroy()
