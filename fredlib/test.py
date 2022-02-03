@@ -50,8 +50,14 @@ def test_database():
             print(obs)
     database.destroy()
 
+
 def test_api_children():
-    all_category = get_children_categories2(10,api_key)
+    all_category = get_children_categories_iterative(10,api_key)
     for cat in all_category:
         print(cat)
+    cat_from_db = get_children_categories_iterative(10,api_key)
+    for cat in cat_from_db:
+        print(cat)
+    print(len(all_category) == len(cat_from_db))
+
 test_api_children()
