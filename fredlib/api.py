@@ -36,10 +36,11 @@ def get_series(category_id: int, api_key: str, db_name="fred.db") -> []:
             database.insert_series(ser)
     return series
 
-def update_series(series_id: int, api_key: str, db_name="fred.db") -> []:
 
+def update_series(series_id: int, api_key: str, db_name="fred.db") -> []:
     fred = Fred(api_key)
     database = Database(db_name)
-    series = database.get_single_series(series_id)
-    obs = fred.get_observables(series.series_id)
-    database.update_series(series,obs)
+    series = fred.get_single_series(series_id)
+    if database.is_new_series(series):
+        obs = fred.get_observables(series.series_id)
+        database.update_series(series, obs)

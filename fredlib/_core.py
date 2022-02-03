@@ -4,6 +4,8 @@ from model import *
 import requests
 import json
 import sqlite3
+from typing import List, Any
+from datetime import datetime as dt
 
 _database_configuration = {"tables": ["series", "observables"],
                            "rows": {
@@ -44,6 +46,11 @@ class NotSupportedOperation(Exception):
 class DatabaseWritingError(Exception):
     def __init__(self, query, error):
         super().__init__("Query :" + query + " has failed with error:" + str(error))
+
+
+class SeriesNotFound(Exception):
+    def __init__(self, series_id):
+        super().__init__("Series with id: " + str(series_id) + " not found")
 
 
 class ModelType(enum.Enum):
@@ -104,29 +111,32 @@ class Fred(DataManager):
     if the model_type is not one of the 3 previously listed
     '''
 
-    def _parse(self, json_object, model_type, elem_id=0) -> []:
+    def _parse(self, json_object, model_type, elem_id=0) -> List[Any]:
         dictionary = json.loads(json_object)
+        result = []
         if model_type == ModelType.Category:
             categories = dictionary["categories"]
             returned_categories = []
             for cat in categories:
                 returned_categories.append(Category(cat["id"], cat["name"], cat["parent_id"]))
-            return returned_categories
+            result = returned_categories
         elif model_type == ModelType.Series:
             list_of_series = dictionary["seriess"]
             series = []
             for ser in list_of_series:
                 series.append(Series(ser["id"], ser["title"], ser["last_updated"], elem_id))
-            return series
+            result = series
 
         elif model_type == ModelType.Observable:
             observations = dictionary["observations"]
             observables = []
             for obs in observations:
                 observables.append(Observable(obs["date"], obs["value"], elem_id))
-            return observables
+            result = observables
         else:
             raise NotSupportedModelType(model_type)
+
+        return result
 
     def get_category(self, category_id) -> Category:
         url_start = "https://api.stlouisfed.org/fred/category?category_id="
@@ -135,6 +145,14 @@ class Fred(DataManager):
         if len(categories) == 0:
             raise CategoryNotFound(category_id)
         return categories[0]
+
+    def get_single_series(self, series_id) -> Series:
+        url_start = "https://api.stlouisfed.org/fred/series?series_id="
+        json_object = self._get(url_start + str(series_id))
+        series = self._parse(json_object, ModelType.Series)
+        if len(series) == 0:
+            raise SeriesNotFound(series_id)
+        return series[0]
 
     def get_series(self, category) -> []:
         url_start = "https://api.stlouisfed.org/fred/category/series?category_id="
@@ -232,37 +250,45 @@ class Database(DataManager):
             raise DatabaseWritingError(query, e.args[0])
 
     def insert_series(self, series: Series):
-        statement = "INSERT INTO series VALUES ('" + str(series.series_id) + "'," + "'"+str(series.title)+"'" + ",'" + str(series.last_updated) + "'," + str(series.category_id) + ");"
+        statement = "INSERT INTO series VALUES ('" + str(series.series_id) + "'," + "'" + str(
+            series.title) + "'" + ",'" + str(series.last_updated) + "'," + str(series.category_id) + ");"
         self._push(statement)
 
     def insert_observables(self, observable: Observable):
         attributes = _database_configuration["rows"]["observables"]
         columns = attributes[1][0] + "," + attributes[2][0] + "," + attributes[3][0]
-        statement = "INSERT INTO observables (" + columns + ") VALUES ('" + str(observable.date) + "'," + str(observable.value) + ",'" + str(observable.series_id) + "');"
+        statement = "INSERT INTO observables (" + columns + ") VALUES ('" + str(observable.date) + "'," + str(
+            observable.value) + ",'" + str(observable.series_id) + "');"
         self._push(statement)
 
     def delete_series(self, series: Series):
         statement = "DELETE  FROM series WHERE series_id='" + series.series_id + "';"
         self._push(statement)
 
+    def is_new_series(self,series: Series):
+        try:
+            prev_series = self._get_single_series(series.series_id)
+            last_date = dt.strptime(prev_series.last_updated.split(" ")[0], "%Y-%m-%d")
+            actual_date = dt.strptime(series.last_updated.split(" ")[0], "%Y-%m-%d")
+            return actual_date > last_date
+        except SeriesNotFound as e:
+            return True
+
     def update_series(self, series: Series, observables: []):
-        prev_series = self.get_series(series.category_id)
-        if len(prev_series) != 0:
+        if self.is_new_series(series):
             self.delete_series(series)
         self.insert_series(series)
         for obs in observables:
             self.insert_observables(obs)
 
-    def get_single_series(self,series_id: int) -> Series:
-        statement = "SELECT * FROM series WHERE series_id ='"+series_id+"';"
+    def _get_single_series(self, series_id: int) -> Series:
+        statement = "SELECT * FROM series WHERE series_id ='" + str(series_id) + "';"
         rows = self._get(statement)
-        series = self._parse(ModelType.Series,rows)
+        series = self._parse(ModelType.Series, rows)
         if len(series) != 0:
             return series[0]
         else:
-            raise CategoryNotFound(series_id)
+            raise SeriesNotFound(series_id)
 
     def __del__(self):
         self.destroy()
-
-
