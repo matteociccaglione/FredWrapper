@@ -10,7 +10,7 @@ setup(
     license='BSD 2-clause',
     packages=['fredlib'],
     install_requires=[
-                      'numpy','matplotlib','networkx>=2.6.3'
+                      'numpy','matplotlib','networkx>=2.6.3', 'requests'
                       ],
 
     classifiers=[
