@@ -1,6 +1,7 @@
 # This file contains exported APIs of the package
 from _core import *
 import time
+from tree import *
 
 
 def get_children_categories_recursive(parent_category: int, api_key) -> []:
@@ -16,7 +17,7 @@ def get_children_categories_recursive(parent_category: int, api_key) -> []:
 
 def get_children_categories_iterative(parent_category_id: int, api_key: str, db_name="fred.db") -> []:
     database = Database(db_name)
-    #controlla se c'è nel db
+    # controlla se c'è nel db
     try:
         category = database.get_category(parent_category_id)
         print("IN DB")
@@ -25,10 +26,10 @@ def get_children_categories_iterative(parent_category_id: int, api_key: str, db_
         while len(iterative_list) != 0:
             iterative_list += database.get_categories_by_parent_id(iterative_list[0].category_id)
             result_list.append(iterative_list.pop(0))
-        result_list.pop(0)
+        # result_list.pop(0)
 
     except CategoryNotFound:
-        #deve prendere le categorie da fred
+        # deve prendere le categorie da fred
         print("NOT IN DB")
         fred = Fred(api_key)
         category = fred.get_category(parent_category_id)
@@ -44,9 +45,10 @@ def get_children_categories_iterative(parent_category_id: int, api_key: str, db_
                 database.insert_category(cat)
             except DatabaseWritingError:
                 continue
-        result_list.pop(0)
+        # result_list.pop(0)
 
     return result_list
+
 
 def old_get_children_categories(parent_category: int, api_key: str) -> []:
     fred = Fred(api_key)
@@ -58,6 +60,7 @@ def old_get_children_categories(parent_category: int, api_key: str) -> []:
         result_list.append(iterative_list.pop(0))
     result_list.pop(0)
     return result_list
+
 
 def get_series(category_id: int, api_key: str, db_name="fred.db") -> []:
     database = Database(db_name)
@@ -80,6 +83,7 @@ def update_series(series_id: str, api_key: str, db_name="fred.db") -> bool:
         return True
     return False
 
+
 def insert_observables(series_id: str, api_key: str, db_name="fred.db") -> []:
     fred = Fred(api_key)
     database = Database(db_name)
@@ -92,6 +96,7 @@ def insert_observables(series_id: str, api_key: str, db_name="fred.db") -> []:
         result = observables
     return result
 
+
 def update_category(category_id: int, api_key: str, db_name="fred.db") -> bool:
     fred = Fred(api_key)
     series = fred.get_series(category_id)
@@ -100,3 +105,6 @@ def update_category(category_id: int, api_key: str, db_name="fred.db") -> bool:
         result = result and update_series(ser.series_id, api_key, db_name)
     return result
 
+
+def from_list_to_tree(list_of_categories) -> CategoryTree:
+    return CategoryTree(list_of_categories)

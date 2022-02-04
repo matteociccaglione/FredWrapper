@@ -60,4 +60,13 @@ def test_api_children():
         print(cat)
     print(len(all_category) == len(cat_from_db))
 
-test_api_children()
+
+def test_tree():
+    list_of_categories = get_children_categories_iterative(10,api_key)
+    tree = from_list_to_tree(list_of_categories)
+    print(tree)
+
+test_tree()
+
+
+
