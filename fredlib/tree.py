@@ -43,7 +43,6 @@ class CategoryTree(Iterable):
                 else:
                     self.root = map_of_nodes[key][0]
                     map_of_nodes.pop(key)
-                    list_of_id.remove(key)
                 break
         parent = self.root
         list_of_parents = [parent]
@@ -90,7 +89,7 @@ class CategoryTree(Iterable):
         list_of_nodes = []
         while len(list_of_parents) != 0:
             list_of_parents.extend(list_of_parents[0]._get_children())
-            list_of_nodes.append(list_of_parents.pop(0))
+            list_of_nodes.append(list_of_parents.pop(0).value)
         return list_of_nodes
 
     def subtree(self, category_id):
