@@ -102,6 +102,8 @@ class CategoryTree(Iterable):
     def __len__(self):
         return self.count
 
-    def __str__(self):
+    def plot(self):
         nx.draw(self._G, arrows=True, with_labels=True)
         plt.draw()
+
+
