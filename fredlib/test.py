@@ -66,7 +66,7 @@ def test_tree():
     tree = from_list_to_tree(list_of_categories)
     print(tree)
 
-test_tree()
+fred_test()
 
 
 

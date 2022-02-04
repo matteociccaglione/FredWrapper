@@ -2,9 +2,9 @@
 from _core import *
 import time
 from tree import *
+from typing import List
 
-
-def get_children_categories_recursive(parent_category: int, api_key) -> []:
+def get_children_categories_recursive(parent_category: int, api_key) -> List[Category]:
     children = Fred(api_key).get_category_children(parent_category)
     if len(children) == 0:
         return []
@@ -15,12 +15,11 @@ def get_children_categories_recursive(parent_category: int, api_key) -> []:
         return category_children
 
 
-def get_children_categories_iterative(parent_category_id: int, api_key: str, db_name="fred.db") -> []:
+def get_children_categories_iterative(parent_category_id: int, api_key: str, db_name="fred.db") -> List[Category]:
     database = Database(db_name)
     # controlla se c'è nel db
     try:
         category = database.get_category(parent_category_id)
-        print("IN DB")
         iterative_list = [category]
         result_list = []
         while len(iterative_list) != 0:
@@ -30,7 +29,6 @@ def get_children_categories_iterative(parent_category_id: int, api_key: str, db_
 
     except CategoryNotFound:
         # deve prendere le categorie da fred
-        print("NOT IN DB")
         fred = Fred(api_key)
         category = fred.get_category(parent_category_id)
         iterative_list = [category]
@@ -50,19 +48,7 @@ def get_children_categories_iterative(parent_category_id: int, api_key: str, db_
     return result_list
 
 
-def old_get_children_categories(parent_category: int, api_key: str) -> []:
-    fred = Fred(api_key)
-    iterative_list = [Category(parent_category, "", 0)]
-    result_list = []
-    while len(iterative_list) != 0:
-        iterative_list += fred.get_category_children(iterative_list[0].category_id)
-        time.sleep(0.1)
-        result_list.append(iterative_list.pop(0))
-    result_list.pop(0)
-    return result_list
-
-
-def get_series(category_id: int, api_key: str, db_name="fred.db") -> []:
+def get_series(category_id: int, api_key: str, db_name="fred.db") -> List[Series]:
     database = Database(db_name)
     fred = Fred(api_key)
     series = database.get_series(category_id)
@@ -84,15 +70,22 @@ def update_series(series_id: str, api_key: str, db_name="fred.db") -> bool:
     return False
 
 
-def insert_observables(series_id: str, api_key: str, db_name="fred.db") -> []:
+def get_observables(series_id: str, api_key: str, db_name="fred.db") -> List[Observable]:
     fred = Fred(api_key)
     database = Database(db_name)
     try:
-        database._get_single_series(series_id)
-        result = database.get_observables(series_id)
+        series = database._get_single_series(series_id)
+        if database.is_empty_series(series):
+            observables = fred.get_observables(series_id)
+            for obs in observables:
+                database.insert_observables(obs)
+            result = observables
+        else:
+            result = database.get_observables(series_id)
     except SeriesNotFound:
         observables = fred.get_observables(series_id)
-        database.insert_observables(observables)
+        for obs in observables:
+            database.insert_observables(obs)
         result = observables
     return result
 

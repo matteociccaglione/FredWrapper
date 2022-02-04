@@ -9,14 +9,18 @@ class Category:
 
 
 class Series:
-    def __init__(self, series_id, title, last_updated, category_id=0):
+    def __init__(self, series_id, title, last_updated, observation_start, observation_end, category_id=0):
         self.series_id = series_id
         self.title = title
         self.last_updated = last_updated
         self.category_id = category_id
+        self.observation_start = observation_start
+        self.observation_end = observation_end
 
     def __str__(self):
-        return "ID-> " + str(self.series_id) + " Title-> " + self.title + " Last update-> " + str(self.last_updated) + " Category ID-> " + str(self.category_id)
+        return "ID-> " + str(self.series_id) + " Title-> " + self.title + " Last update-> " + str(
+            self.last_updated) + " Observation start -> " + str(self.observation_start) + " Observation end -> " + str(
+            self.observation_end) + " Category ID-> " + str(self.category_id)
 
 
 class Observable:
@@ -27,4 +31,3 @@ class Observable:
 
     def __str__(self):
         return "Date: " + str(self.date) + " Value: " + str(self.value) + " Series ID: " + str(self.series_id)
-

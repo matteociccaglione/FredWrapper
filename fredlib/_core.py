@@ -10,14 +10,15 @@ from datetime import datetime as dt
 _database_configuration = {"tables": ["series", "observables", "categories"],
                            "rows": {
                                "series": [("series_id", "TEXT PRIMARY KEY"), ("title", "TEXT"),
-                                          ("last_updated", "TEXT"),
+                                          ("last_updated", "TEXT"), ("observation_start", "TEXT"),
+                                          ("observation_end", "TEXT"),
                                           ("category_id",
                                            "TEXT REFERENCES categories(category_id) ON DELETE CASCADE ON UPDATE CASCADE")],
                                "observables": [("id", "INTEGER PRIMARY KEY AUTOINCREMENT"), ("date", "TEXT"),
                                                ("value", "REAL"), ("series_id",
                                                                    "TEXT REFERENCES series(series_id) ON DELETE CASCADE ON UPDATE CASCADE")],
-                               "categories": [("category_id", "TEXT PRIMARY KEY"), ("name", "TEXT"),
-                                              ("parent_id", "TEXT")]
+                               "categories": [("category_id", "INTEGER PRIMARY KEY"), ("name", "TEXT"),
+                                              ("parent_id", "INTEGER")]
                            }}
 
 
@@ -120,13 +121,14 @@ class Fred(DataManager):
             categories = dictionary["categories"]
             returned_categories = []
             for cat in categories:
-                returned_categories.append(Category(cat["id"], cat["name"], cat["parent_id"]))
+                returned_categories.append(Category(int(cat["id"]), cat["name"], int(cat["parent_id"])))
             result = returned_categories
         elif model_type == ModelType.Series:
             list_of_series = dictionary["seriess"]
             series = []
             for ser in list_of_series:
-                series.append(Series(ser["id"], ser["title"], ser["last_updated"], elem_id))
+                series.append(Series(ser["id"], ser["title"], ser["last_updated"], ser["observation_start"],
+                                     ser["observation_end"], elem_id))
             result = series
 
         elif model_type == ModelType.Observable:
@@ -215,7 +217,7 @@ class Database(DataManager):
         if model_type == ModelType.Series:
             returned_series = []
             for row in rows:
-                series = Series(row[0], row[1], row[2], row[3])
+                series = Series(row[0], row[1], row[2], row[3], row[4], row[5])
                 returned_series.append(series)
             return returned_series
 
@@ -229,7 +231,7 @@ class Database(DataManager):
         if model_type == ModelType.Category:
             categories = []
             for row in rows:
-                category = Category(row[0],row[1],row[2])
+                category = Category(row[0], row[1], row[2])
                 categories.append(category)
             return categories
 
@@ -244,7 +246,7 @@ class Database(DataManager):
         else:
             raise CategoryNotFound(category_id)
 
-    def get_categories_by_parent_id(self,parent_id) -> []:
+    def get_categories_by_parent_id(self, parent_id) -> []:
         statement = "SELECT * FROM categories WHERE parent_id=" + str(parent_id) + ";"
         rows = self._get(statement)
         return self._parse(ModelType.Category, rows)
@@ -276,7 +278,8 @@ class Database(DataManager):
 
     def insert_series(self, series: Series):
         statement = "INSERT INTO series VALUES ('" + str(series.series_id) + "','" + str(
-            series.title) + "'" + ",'" + str(series.last_updated) + "'," + str(series.category_id) + ");"
+            series.title) + "'" + ",'" + str(series.last_updated) + "'," + "'" + str(
+            series.observation_start) + "'," + "'" + str(series.observation_end) + "'," + str(series.category_id) + ");"
         self._push(statement)
 
     def insert_observables(self, observable: Observable):
@@ -298,6 +301,9 @@ class Database(DataManager):
             return actual_date > last_date or len(self.get_observables(series.series_id)) == 0
         except SeriesNotFound as e:
             return True
+
+    def is_empty_series(self, series: Series) -> bool:
+        return len(self.get_observables(series.series_id)) == 0
 
     def update_series(self, series: Series, observables: []):
         if self.is_new_series(series):

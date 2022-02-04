@@ -22,7 +22,7 @@ class CategoryTree(Iterable):
 
     def __init__(self, category_list):
         map_of_nodes = {}
-        self._G = nx.DiGraph(directed = True)
+        self._G = nx.DiGraph(directed=True)
         self.count = len(category_list)
         list_of_id = []
         for cat in category_list:
@@ -36,7 +36,7 @@ class CategoryTree(Iterable):
         for key in map_of_nodes.keys():
             if not (key in list_of_id) or key == 0:
                 # This is the parent of the root!!
-                if key == 0:
+                if key == 0 and len(map_of_nodes[key]) > 1:
                     for node in map_of_nodes[key]:
                         if node.value.category_id == 0:
                             self.root = node
@@ -105,5 +105,3 @@ class CategoryTree(Iterable):
     def plot(self):
         nx.draw(self._G, arrows=True, with_labels=True)
         plt.draw()
-
-
