@@ -12,6 +12,54 @@ class NotPlottableSeries(Exception):
         super().__init__("Series: " + str(series) + "is not plottable")
 
 
+class SeriesGraph:
+    def __init__(self, series: Series, date_list, min_y_value, max_y_value, axis_x_values, axis_y_values):
+        self.date_list = date_list
+        self.min_y_value = min_y_value
+        self.max_y_value = max_y_value
+        self.series = [series]
+        self.axis_x_values = [axis_x_values]
+        self.axis_y_values = [axis_y_values]
+
+    def plot(self, fig_size=(14, 8), dpi=150, xlabel="Dates", ylabel="Values"):
+        colors = ["blue", "orange", "red", "green", "black", "pink", "grey", "brown", "yellow"]
+        plt.figure(figsize=fig_size, dpi=dpi)
+        title = ""
+        for ser in self.series:
+            title += ser.title + " from " + ser.observation_start + " to " + ser.observation_end + "\n"
+        plt.title(title)
+
+        plt.xlabel(xlabel, color='blue', size="large")
+        plt.ylabel(ylabel, color='blue', size="large")
+        plt.yticks(np.arange(self.min_y_value, self.max_y_value, (self.max_y_value - self.min_y_value) / 10))
+
+        ticks_x = []
+        for date in self.date_list:
+            ticks_x.append(str(date).split(" ")[0])
+        list_of_epochday = []
+        for date in self.date_list:
+            list_of_epochday.append((date - dt(1970, 1, 1)).days)
+        plt.xticks(list_of_epochday, ticks_x, rotation=45, size="small")
+
+        for i in range(len(self.axis_x_values)):
+            plt.plot(self.axis_x_values[i], self.axis_y_values[i], color=colors[i], label=self.series[i].title)
+        plt.legend(loc = "best")
+
+    def merge(self, other_graph):
+        other_y_min = other_graph.min_y_value
+        other_y_max = other_graph.max_y_value
+        self.min_y_value = min(self.min_y_value, other_y_min)
+        self.max_y_value = max(self.max_y_value, other_y_max)
+
+        other_date_list = other_graph.date_list
+        if (other_date_list[0] < self.date_list[0]) and (other_date_list[len(other_date_list) - 1] > self.date_list[len(self.date_list) - 1]):
+            self.date_list = other_date_list
+
+        self.series.extend(other_graph.series)
+        self.axis_x_values.extend(other_graph.axis_x_values)
+        self.axis_y_values.extend(other_graph.axis_y_values)
+
+
 def _sort_observables(observables):
     for i in range(1, len(observables)):
 
@@ -27,7 +75,7 @@ def _sort_observables(observables):
         observables[j + 1] = key
 
 
-def plot_series(series: Series, api_key, db_name="fred.db"):
+def build_series_graph(series: Series, api_key, db_name="fred.db") -> SeriesGraph:
     if str(series.observation_start) == "1776-07-04" and series.observation_end == "9999-12-31":
         raise NotPlottableSeries(series)
     observables = get_observables(series.series_id, api_key, db_name)
@@ -36,9 +84,11 @@ def plot_series(series: Series, api_key, db_name="fred.db"):
     _sort_observables(observables)
     dates = []
     values = []
+    datetimes = []
     min_values = math.inf
     max_values = -math.inf
     for obs in observables:
+        datetimes.append(dt.strptime(obs.date, "%Y-%m-%d"))
         dates.append((dt.strptime(obs.date, "%Y-%m-%d") - dt(1970, 1, 1)).days)
         values.append(obs.value)
         if obs.value < min_values:
@@ -46,21 +96,20 @@ def plot_series(series: Series, api_key, db_name="fred.db"):
         if obs.value > max_values:
             max_values = obs.value
 
-    fig = plt.figure(figsize=(10, 8), dpi=300)
-    plt.title(series.title + " from " + series.observation_start + " to " + series.observation_end)
-    plt.xlabel("dates", color='blue', size="large")
-    plt.ylabel("values", color='blue', size="large")
-    plt.yticks(np.arange(min_values, max_values, (max_values - min_values) / 10))
-    date_list = np.arange(dt.strptime(observables[0].date, "%Y-%m-%d"),
+    # calculate date_list
+    frequency = series.frequency_short.to_number_of_days()
+
+    period_of_days = (dt.strptime(observables[len(observables) - 1].date, "%Y-%m-%d") - dt.strptime(observables[0].date,
+                                                                                                    "%Y-%m-%d")).days
+
+    y = period_of_days / frequency
+    step = math.ceil(y / 15)
+    date_list = []
+    for i in range(0, len(datetimes), step):
+        date_list.append(datetimes[i])
+
+    '''date_list = np.arange(dt.strptime(observables[0].date, "%Y-%m-%d"),
                           dt.strptime(observables[len(observables) - 1].date, "%Y-%m-%d"), timedelta(days=360)).astype(
         datetime)
-    ticks_x = []
-    for date in date_list:
-        ticks_x.append(str(date).split(" ")[0])
-    list_of_epochday = []
-    for date in date_list:
-        list_of_epochday.append((date - dt(1970, 1, 1)).days)
-    for i in range(0, len(list_of_epochday)):
-        print("Day: " + str(list_of_epochday[i]) + " date: " + ticks_x[i])
-    plt.xticks(list_of_epochday, ticks_x, rotation=45, size="small")
-    plt.plot(dates, values)
+    '''
+    return SeriesGraph(series, date_list, min_values, max_values, dates, values)

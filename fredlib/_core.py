@@ -11,7 +11,7 @@ _database_configuration = {"tables": ["series", "observables", "categories"],
                            "rows": {
                                "series": [("series_id", "TEXT PRIMARY KEY"), ("title", "TEXT"),
                                           ("last_updated", "TEXT"), ("observation_start", "TEXT"),
-                                          ("observation_end", "TEXT"),
+                                          ("observation_end", "TEXT"), ("frequency_short", "TEXT"),
                                           ("category_id",
                                            "TEXT REFERENCES categories(category_id) ON DELETE CASCADE ON UPDATE CASCADE")],
                                "observables": [("id", "INTEGER PRIMARY KEY AUTOINCREMENT"), ("date", "TEXT"),
@@ -128,13 +128,15 @@ class Fred(DataManager):
             series = []
             for ser in list_of_series:
                 series.append(Series(ser["id"], ser["title"], ser["last_updated"], ser["observation_start"],
-                                     ser["observation_end"], elem_id))
+                                     ser["observation_end"], ser["frequency_short"].lower(), elem_id))
             result = series
 
         elif model_type == ModelType.Observable:
             observations = dictionary["observations"]
             observables = []
             for obs in observations:
+                if obs["value"] == ".":
+                    continue
                 observables.append(Observable(obs["date"], obs["value"], elem_id))
             result = observables
         else:
@@ -217,7 +219,7 @@ class Database(DataManager):
         if model_type == ModelType.Series:
             returned_series = []
             for row in rows:
-                series = Series(row[0], row[1], row[2], row[3], row[4], row[5])
+                series = Series(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
                 returned_series.append(series)
             return returned_series
 
@@ -279,7 +281,8 @@ class Database(DataManager):
     def insert_series(self, series: Series):
         statement = "INSERT INTO series VALUES ('" + str(series.series_id) + "','" + str(
             series.title) + "'" + ",'" + str(series.last_updated) + "'," + "'" + str(
-            series.observation_start) + "'," + "'" + str(series.observation_end) + "'," + str(series.category_id) + ");"
+            series.observation_start) + "'," + "'" + str(series.observation_end) + "'," + "'" + str(
+            series.frequency_short.value) + "'," + str(series.category_id) + ");"
         self._push(statement)
 
     def insert_observables(self, observable: Observable):
