@@ -20,13 +20,14 @@ class SeriesGraph:
         self.series = [series]
         self.axis_x_values = [axis_x_values]
         self.axis_y_values = [axis_y_values]
+        self.linear_regression = None
 
-    def plot(self, fig_size=(14, 8), dpi=150, xlabel="Dates", ylabel="Values"):
-        colors = ["blue", "orange", "red", "green", "black", "pink", "grey", "brown", "yellow"]
+    def plot(self, fig_size=(14, 8), dpi=150, xlabel="Dates", ylabel="Values", title=""):
+        colors = ["blue", "orange", "red", "green", "pink", "grey", "brown", "yellow"]
         plt.figure(figsize=fig_size, dpi=dpi)
-        title = ""
-        for ser in self.series:
-            title += ser.title + " from " + ser.observation_start + " to " + ser.observation_end + "\n"
+        if title == "":
+            for ser in self.series:
+                title += ser.title + " from " + ser.observation_start + " to " + ser.observation_end + "\n"
         plt.title(title)
 
         plt.xlabel(xlabel, color='blue', size="large")
@@ -43,7 +44,11 @@ class SeriesGraph:
 
         for i in range(len(self.axis_x_values)):
             plt.plot(self.axis_x_values[i], self.axis_y_values[i], color=colors[i], label=self.series[i].title)
-        plt.legend(loc = "best")
+        if self.linear_regression is not None:
+            x = np.arange(list_of_epochday[0], list_of_epochday[len(list_of_epochday) - 1])
+            y = self.linear_regression[1] * x + self.linear_regression[0]
+            plt.plot(x, y, label="Linear regression", color = "black")
+        plt.legend(loc="best")
 
     def merge(self, other_graph):
         other_y_min = other_graph.min_y_value
@@ -52,7 +57,8 @@ class SeriesGraph:
         self.max_y_value = max(self.max_y_value, other_y_max)
 
         other_date_list = other_graph.date_list
-        if (other_date_list[0] < self.date_list[0]) and (other_date_list[len(other_date_list) - 1] > self.date_list[len(self.date_list) - 1]):
+        if (other_date_list[0] < self.date_list[0]) and (
+                other_date_list[len(other_date_list) - 1] > self.date_list[len(self.date_list) - 1]):
             self.date_list = other_date_list
 
         self.series.extend(other_graph.series)
@@ -62,6 +68,9 @@ class SeriesGraph:
     def merge_multiple_graph(self, *args):
         for arg in args:
             self.merge(arg)
+
+    def add_linear_regression(self, b0, b1):
+        self.linear_regression = (b0, b1)
 
 
 def _sort_observables(observables):
@@ -79,10 +88,11 @@ def _sort_observables(observables):
         observables[j + 1] = key
 
 
-def build_series_graph(series: Series, api_key, db_name="fred.db") -> SeriesGraph:
+def build_series_graph(series: Series, api_key, db_name="fred.db", observables: List[Observable] = []) -> SeriesGraph:
     if str(series.observation_start) == "1776-07-04" and series.observation_end == "9999-12-31":
         raise NotPlottableSeries(series)
-    observables = get_observables(series.series_id, api_key, db_name)
+    if len(observables) == 0:
+        observables = get_observables(series.series_id, api_key, db_name)
     if len(observables) <= 1:
         raise NotPlottableSeries(series)
     _sort_observables(observables)
