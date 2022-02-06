@@ -59,6 +59,10 @@ class SeriesGraph:
         self.axis_x_values.extend(other_graph.axis_x_values)
         self.axis_y_values.extend(other_graph.axis_y_values)
 
+    def merge_multiple_graph(self, *args):
+        for arg in args:
+            self.merge(arg)
+
 
 def _sort_observables(observables):
     for i in range(1, len(observables)):
