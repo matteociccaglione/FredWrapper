@@ -104,7 +104,7 @@ class CategoryTree(Iterable):
     def __len__(self):
         return self.count
 
-    def plot(self, figsize=(10, 8), dpi=100):
+    def plot(self, fig_size=(10, 8), dpi=100):
         nx.draw(self._G, arrows=True, with_labels=True)
-        plt.figure(figsize, dpi)
+        plt.figure(fig_size, dpi)
         plt.draw()
