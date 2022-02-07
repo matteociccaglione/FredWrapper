@@ -1,11 +1,11 @@
 # This file is for testing purposes only
 from _core import *
 from api import *
+
 api_key = "e4c748a06f5ed75a6277731745e18fcf"
 
 
 def fred_test():
-
     global fred
     fred = Fred(api_key)
     print("Testing for fred api")
@@ -22,8 +22,8 @@ def fred_test():
         for obs in observables:
             print(obs)
 
-def test_database():
 
+def test_database():
     fred = Fred(api_key)
     print("Fred object created")
     """
@@ -52,21 +52,19 @@ def test_database():
 
 
 def test_api_children():
-    all_category = get_children_categories_iterative(10,api_key)
+    all_category = get_children_categories_iterative(10, api_key)
     for cat in all_category:
         print(cat)
-    cat_from_db = get_children_categories_iterative(10,api_key)
+    cat_from_db = get_children_categories_iterative(10, api_key)
     for cat in cat_from_db:
         print(cat)
     print(len(all_category) == len(cat_from_db))
 
 
 def test_tree():
-    list_of_categories = get_children_categories_iterative(10,api_key)
+    list_of_categories = get_children_categories_iterative(10, api_key)
     tree = from_list_to_tree(list_of_categories)
     print(tree)
 
-fred_test()
 
-
-
+category_children = get_children_categories_iterative(0, api_key, db_name="exam.db")
