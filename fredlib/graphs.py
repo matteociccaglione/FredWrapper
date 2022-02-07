@@ -57,8 +57,8 @@ class SeriesGraph:
         self.max_y_value = max(self.max_y_value, other_y_max)
 
         other_date_list = other_graph.date_list
-        if (other_date_list[0] < self.date_list[0]) and (
-                other_date_list[len(other_date_list) - 1] > self.date_list[len(self.date_list) - 1]):
+        if (other_date_list[0] <= self.date_list[0]) and (
+                other_date_list[len(other_date_list) - 1] >= self.date_list[len(self.date_list) - 1]):
             self.date_list = other_date_list
 
         self.series.extend(other_graph.series)
