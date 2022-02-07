@@ -31,7 +31,13 @@ def get_children_categories_iterative(parent_category_id: int, api_key: str, db_
         result_list = []
         while len(iterative_list) != 0:
             iterative_list += database.get_categories_by_parent_id(iterative_list[0].category_id)
-            result_list.append(iterative_list.pop(0))
+            first_element = iterative_list.pop(0)
+            result_list.append(first_element)
+            if first_element.category_id == 0:
+                for item in iterative_list:
+                    if item.category_id == 0:
+                        iterative_list.remove(item)
+                        break
         # result_list.pop(0)
 
     except CategoryNotFound:
