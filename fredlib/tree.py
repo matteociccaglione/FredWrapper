@@ -64,7 +64,7 @@ class CategoryTree(Iterable):
         queue = [self.root]
 
         while len(queue) > 0:
-            yield queue[0]
+            yield queue[0].value
             node = queue.pop(0)
             queue.extend(node._get_children())
 
