@@ -67,4 +67,3 @@ def test_tree():
     print(tree)
 
 
-category_children = get_children_categories_iterative(0, api_key, db_name="exam.db")
