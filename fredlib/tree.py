@@ -106,5 +106,5 @@ class CategoryTree(Iterable):
 
     def plot(self, fig_size=(10, 8), dpi=100):
         nx.draw(self._G, arrows=True, with_labels=True)
-        plt.figure(fig_size, dpi)
+        plt.figure(figsize = fig_size, dpi = dpi)
         plt.draw()
