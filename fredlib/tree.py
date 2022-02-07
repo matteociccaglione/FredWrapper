@@ -40,6 +40,8 @@ class CategoryTree(Iterable):
                     for node in map_of_nodes[key]:
                         if node.value.category_id == 0:
                             self.root = node
+                            map_of_nodes[key].remove(node)
+                            break
                 else:
                     self.root = map_of_nodes[key][0]
                     map_of_nodes.pop(key)

@@ -143,7 +143,6 @@ class Fred(DataManager):
             raise NotSupportedModelType(model_type)
 
         return result
-
     def get_category(self, category_id) -> Category:
         url_start = "https://api.stlouisfed.org/fred/category?category_id="
         json_object = self._get(url_start + str(category_id))
