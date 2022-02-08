@@ -32,6 +32,7 @@ def get_children_categories_recursive(parent_category: int, api_key) -> List[Cat
     The function returns a Category list and if you want to rebuild a tree structure use the "from_list_to_tree" function.
 
     This function will always download the data from internet and doesn't save it on a database.
+
     :param parent_category: Category id of the parent category
     :type parent_category: int
     :param api_key: A valid Fred API Key
@@ -57,6 +58,7 @@ def get_children_categories_iterative(parent_category_id: int, api_key: str, db_
 
     If the data does not already exist in a database this may take a long time.
     The function uses local data whenever possible and stores data downloaded via the internet in a database.
+
     :param parent_category: Category id of the parent category
     :type parent_category: int
     :param api_key: A valid Fred API Key
