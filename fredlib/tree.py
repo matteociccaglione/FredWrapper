@@ -2,8 +2,22 @@ import networkx as nx
 from matplotlib import pyplot as plt
 from collections import Iterable
 
+"""
+..automodule: tree
+This module contains the CategoryTree class which can be used to represent a list of categories with a tree structure
+"""
+
+"""
+This class can be used to represent a list of categories with a tree structure
+"""
+
 
 class CategoryTree(Iterable):
+    """
+    ..autoclass: _Node
+    This class is private and undocumented, you must not use this class
+    """
+
     class _Node:
         def __init__(self, category):
             self.value = category
@@ -20,8 +34,15 @@ class CategoryTree(Iterable):
         def _add_children(self, children):
             self.children = children
 
+    """
+    Builder of the class. Do not use the constructor directly but use the from_list_to_tree function.
+    :param category_list: A list of categories including the parent category (the root of this list)
+    :type category_list: List[Category]
+    """
+
     def __init__(self, category_list):
         map_of_nodes = {}
+        # self._G is used to build a printable tree
         self._G = nx.DiGraph(directed=True)
         self.count = len(category_list)
         list_of_id = []
@@ -60,6 +81,11 @@ class CategoryTree(Iterable):
             list_of_parents += nodes
             list_of_parents.pop(0)
 
+    """
+    Implement a BFS. You can use this method simply by iterating over the elements of the tree using a loop for example:
+    for category in tree. Returns an object of type Category
+    """
+
     def __iter__(self):
         queue = [self.root]
 
@@ -80,6 +106,15 @@ class CategoryTree(Iterable):
             queue = new_queue
         return None
 
+    """
+    This method returns an object of type Category and can be used with the python [] operator, for example:
+    root_category = tree [0]. Returns None if the category is not in the tree
+    :param item: Must be the category_id of the category that you want to download
+    :type item: int
+    :return The category requested, None if the category is not in the tree
+    :rtype: Category
+    """
+
     def __getitem__(self, item):
         result = self.__get_node(item)
         if result is not None:
@@ -94,6 +129,14 @@ class CategoryTree(Iterable):
             list_of_nodes.append(list_of_parents.pop(0).value)
         return list_of_nodes
 
+    """
+    Use this method to build a subtree.
+    :param category_id: The category_id of the root of the subtree
+    :type category_id: int
+    :return A CategoryTree object representing the subtree, None if the category_id is not in the tree
+    :rtype: CategoryTree
+    """
+
     def subtree(self, category_id):
         node = self.__get_node(category_id)
         if node is not None:
@@ -104,7 +147,29 @@ class CategoryTree(Iterable):
     def __len__(self):
         return self.count
 
-    def plot(self, fig_size=(14, 14), dpi=100):
+    """
+    Use this method to print the entire tree on a graph. Each node of the tree will be represented by its category_id.
+    The root of the tree is yellow, while the other nodes are blue.
+    If you specify an highlighted value then the corresponding value will be red
+    :param fig_size: A tuple representing the size of the matplotlib figure
+    :type (int,int)
+    :param dpi: The dpi of the graph
+    :type int
+    :param highlighted: The category that you want to highlight, it will be drawn in red, defaults to None
+    :type highlighted: Category
+    """
+
+    def plot(self, fig_size=(14, 14), dpi=100, highlighted=None):
         plt.figure(figsize=fig_size, dpi=dpi)
-        nx.draw(self._G, arrows=True, with_labels=True)
+        color_map = []
+        for node in self._G:
+            if node == self.root.value.category_id:
+                color_map.append("yellow")
+                continue
+            if highlighted is not None:
+                if node == highlighted.category_id:
+                    color_map.append("red")
+                    continue
+            color_map.append("blue")
+        nx.draw(self._G,node_color=color_map, arrows=True, with_labels=True)
         plt.draw()
