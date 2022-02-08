@@ -1,10 +1,12 @@
 import enum
 
-"""
-..autoclass::Frequency
-This enumeration represents the frequency of sampling on observables
-"""
 class Frequency(enum.Enum):
+    """
+    ..autoclass::Frequency
+
+    This enumeration represents the frequency of sampling on observables
+    """
+
     Daily = "d"
     Weekly = "w"
     Biweekly = "bw"
@@ -16,6 +18,7 @@ class Frequency(enum.Enum):
     def to_number_of_days(self):
         """
         This method converts the sampling frequency in the corresponding number of days
+
         :return: Number of days of the sampling frequency
         :rtype: int
         """
@@ -40,8 +43,15 @@ class Frequency(enum.Enum):
 This class represents a Category as intended by FRED
 """
 class Category:
+    """
+    ..autoclass::Category
+
+    This class represents a Category as intended by FRED
+    """
+
     def __init__(self, category_id, name, parent_id):
         """
+
         :param category_id: Unique identifier of the category
         :type category_id: int
         :param name: Name of the category
@@ -57,13 +67,16 @@ class Category:
         return "Name: " + self.name + " ID: " + str(self.category_id) + " Parent id:" + str(self.parent_id)
 
 
-"""
-..autoclass::Series
-This class represents a Series as intended by FRED
-"""
+
 class Series:
+    """
+    ..autoclass::Series
+
+    This class represents a Series as intended by FRED
+    """
     def __init__(self, series_id, title, last_updated, observation_start, observation_end, frequency_short: str, category_id=0):
         """
+
         :param series_id: Unique identifier of the series
         :type series_id: str
         :param title: Title of the series
@@ -107,13 +120,17 @@ class Series:
             self.observation_end) + " Frequency-> " + str(self.frequency_short) + " Category ID-> " + str(self.category_id)
 
 
-"""
-..autoclass::Observable
-This class represents an Observable as intended by FRED
-"""
+
 class Observable:
+    """
+    ..autoclass::Observable
+
+    This class represents an Observable as intended by FRED
+    """
+
     def __init__(self, date, value, series_id=0):
         """
+
         :param date: The date of the sampling
         :type date: str
         :param value: The sampled value

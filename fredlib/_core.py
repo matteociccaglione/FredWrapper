@@ -1,11 +1,3 @@
-"""
-This module contains the core APIs of the fredlib package
-"""
-
-"""
-..automodule::_core
-This module contains the core APIs of the fredlib package.
-"""
 import enum
 from model import *
 import requests
@@ -28,14 +20,13 @@ _database_configuration = {"tables": ["series", "observables", "categories"],
                                               ("parent_id", "INTEGER")]
                            }}
 
-
-"""
-..autoexception::BadRequestException
-This exception is raised when an HTTP request fails.
-"""
 class BadRequestException(Exception):
 
     """
+    ..autoexception::BadRequestException
+
+    This exception is raised when an HTTP request fails.
+
     :param status_code: An integer representing the HTTP error code
     :type status_code: int
     """
@@ -44,13 +35,12 @@ class BadRequestException(Exception):
         super().__init__("Request has failed with HTTP code: " + str(status_code))
 
 
-"""
-..autoexception::NotSupportedModelType
-This exception is raised when an invalid ModelType object is passed to a method or function.
-For further informations, see :`class:ModelType`.
-"""
 class NotSupportedModelType(Exception):
     """
+    ..autoexception::NotSupportedModelType
+
+    This exception is raised when an invalid ModelType object is passed to a method or function.
+
     :param model_type: One of the element contained in the enum ModelType
     :type model_type: ModelType
     """
@@ -58,12 +48,12 @@ class NotSupportedModelType(Exception):
         super().__init__("ModelType not supported. Type used: " + str(model_type))
 
 
-"""
-..autoexception::CategoryNotFound
-This exception is raised when the retrieval of a category from a database or through the use of FRED's API gives an empty result.
-"""
 class CategoryNotFound(Exception):
     """
+    ..autoexception::CategoryNotFound
+
+    This exception is raised when the retrieval of a category from a database or through the use of FRED's API gives an empty result.
+
     :param category_id: The ID of the category in FRED
     :type category_id: int
     """
@@ -71,12 +61,12 @@ class CategoryNotFound(Exception):
         super().__init__("Category with id " + str(category_id) + " not found")
 
 
-"""
-..autoexception::BadDatabaseQuery
-This exception is raised when a malformed or invalid database query is executed.
-"""
 class BadDatabaseQuery(Exception):
     """
+    ..autoexception::BadDatabaseQuery
+
+    This exception is raised when a malformed or invalid database query is executed.
+
     :param query: The string representing the SQL query
     :type query: str
     """
@@ -84,21 +74,23 @@ class BadDatabaseQuery(Exception):
         super().__init__("Invalid query: " + str(query))
 
 
-"""
-..autoexception::NotSupportedOperation
-This exception is raised when trying to perform an unsupported operation.
-"""
 class NotSupportedOperation(Exception):
+    """
+    ..autoexception::NotSupportedOperation
+
+    This exception is raised when trying to perform an unsupported operation.
+    """
+
     def __init__(self):
         super().__init__("Operation not supported")
 
 
-"""
-..autoexception::DatabaseWritingError
-This exception is raised when a database internal error occurs, following a write operation in the database.
-"""
 class DatabaseWritingError(Exception):
     """
+    ..autoexception::DatabaseWritingError
+
+    This exception is raised when a database internal error occurs, following a write operation in the database.
+
     :param query: The string representing the SQL operation that caused the raising of the exception
     :type query: str
     :param error: The error code returned by the database
@@ -108,37 +100,39 @@ class DatabaseWritingError(Exception):
         super().__init__("Query :" + str(query) + " has failed with error:" + str(error))
 
 
-"""
-..autoexception::SeriesNotFound
-This exception is raised when the retrieval of a series from a database or through the use of FRED's API gives an empty result.
-"""
 class SeriesNotFound(Exception):
     """
+    ..autoexception::SeriesNotFound
+
+    This exception is raised when the retrieval of a series from a database or through the use of FRED's API gives an empty result.
+
     :param series_id: The unique identifier of the series in FRED
     :type series_id: str
     """
     def __init__(self, series_id):
         super().__init__("Series with id: " + str(series_id) + " not found")
 
-"""
-..autoclass::ModelType
-This is an enumeration of the model's classes used in fredlib, representing the various data stored by FRED.
-They are: Category, Series, Observable 
-"""
+
 class ModelType(enum.Enum):
+    """
+    This is an enumeration of the model's classes used in fredlib, representing the various data stored by FRED.
+    They are: Category, Series, Observable
+    """
     Category = 1
     Series = 2
     Observable = 3
 
-"""
-..autoclass::DataManager
-This is an interface defining the fundamental methods of a DataManager object.
-"""
-class DataManager:
 
+class DataManager:
+    """
+    ..autoclass::DataManager
+
+    This is an interface defining the fundamental methods of a DataManager object.
+    """
     def _get(self, query):
         """
         Private method representing a general retrieval operation.
+
         :param query: The query to be performed
         :type query: str
         :return: The result of the query.
@@ -149,6 +143,7 @@ class DataManager:
     def get_category(self, category_id) -> Category:
         """
         Method used to retrieve a Category, given its category id.
+
         :param category_id: The unique identifier of the category in FRED.
         :type category_id: int
         :return: The desired Category object.
@@ -159,6 +154,7 @@ class DataManager:
     def get_series(self, category) -> []:
         """
         Method used to retrieve a list of Series, given the category id of the category they belong to.
+
         :param category: The unique identifier of the category in FRED.
         :type category: int
         :return: The list of the desired Series objects.
@@ -169,6 +165,7 @@ class DataManager:
     def get_observables(self, series) -> []:
         """
         Method used to retrieve a list of Observables, given the series id of the time series they belong to.
+
         :param series: The unique identifier of the series in FRED.
         :type series: str
         :return: The list of the desired Observable objects.
@@ -177,16 +174,20 @@ class DataManager:
         pass
 
 
-"""
-..autoclass::Fred
-This class is used to interact with FRED's services.
-It makes HTTP requests in order to retrieve the desired data in json format.
-It also parses json responses, building the appropriate :class:`ModelType` object representing the data.    
-"""
+
 class Fred(DataManager):
+
+    """
+    ..autoclass::Fred
+
+    This class is used to interact with FRED's services.
+    It makes HTTP requests in order to retrieve the desired data in json format.
+    It also parses json responses, building the appropriate :class:`ModelType` object representing the data.
+    """
 
     def __init__(self, key):
         """
+
         :param key: The FRED's API key to use in request operation
         :type key: str
         """
@@ -197,6 +198,7 @@ class Fred(DataManager):
         '''
         This private method makes a query to FRED's services;
         if the request does not fail, the method returns a json object
+
         :param query: The initial URL part of the query to FRED's services, without specifying the API key
         :type query: str
         :raises BadRequestException: The method throws an exception if the request fails
@@ -214,6 +216,7 @@ class Fred(DataManager):
         '''
         This method parses a json object into a list of objects whose type is one of those in :class:`ModelType`.
         When parsing observables, only those that have no NaN value are kept.
+
         :param json_object: The JSON document to be parsed
         :type json_object: str
         :param model_type: The type of expected resulting object
@@ -256,6 +259,7 @@ class Fred(DataManager):
     def get_category(self, category_id) -> Category:
         """
         This method retrieves a single category from FRED archive, given its category identifier.
+
         :param category_id: The category unique identifier of the category to be retrieved from FERD
         :type category_id: int
         :raises CategoryNotFound: Raised when a category with such a category identifier does not exist in FRED archive
@@ -272,6 +276,7 @@ class Fred(DataManager):
     def get_single_series(self, series_id) -> Series:
         """
         This method retrieves a single series from FRED archive, given its series identifier.
+
         :param series_id: The series unique identifier of the series to be retrieved from FERD
         :type series_id: str
         :raises SeriesNotFound: Raised when a series with such a series identifier does not exist in FRED archive
@@ -288,6 +293,7 @@ class Fred(DataManager):
     def get_series(self, category) -> []:
         """
         This method retrieves all the series under a given category from FRED archive, given the category identifier.
+
         :param category: The category unique identifier of the category of which retrieve the series
         :type category: int
         :return: A list containing the retrieved series. If no series exists under the specified category, the resulting list is empty.
@@ -300,6 +306,7 @@ class Fred(DataManager):
     def get_observables(self, series) -> []:
         """
         This method retrieves all the observables, except those with a NaN value, of a time series from FRED archive, given the series identifier.
+
         :param series: The series unique identifier of the series of which retrieve the observables
         :type series: str
         :return: A list containing the retrieved observables. If no observable exists for the specified series, the resulting list is empty.
@@ -312,6 +319,7 @@ class Fred(DataManager):
     def get_category_children(self, category_id) -> []:
         """
         This method retrieves the children categories of a category in the FRED's category tree hierarchy, given the identifier of the parent category.
+
         :param category_id: The category identifier of the parent category
         :type category_id: int
         :return: A list containing the retrieved categories. If the parent category has no children, the resulting list is empty.
@@ -323,16 +331,19 @@ class Fred(DataManager):
         return categories
 
 
-"""
-..autoclass::Database
-This class is used to interact with an SQLite database.
-Its main purpose is to write data downloaded from FRED into a local database.
-It also allows to fetch the saved data from the database, parsing them into appropriate objects.    
-"""
+
 class Database(DataManager):
+    """
+    ..autoclass::Database
+
+    This class is used to interact with an SQLite database.
+    Its main purpose is to write data downloaded from FRED into a local database.
+    It also allows to fetch the saved data from the database, parsing them into appropriate objects.
+    """
 
     def __init__(self, db_name: str):
         """
+
         :param db_name: Name of the database to interact with. If it does not exist, then it will be created.
         :type db_name: str
         """
@@ -369,6 +380,7 @@ class Database(DataManager):
         """
         This private method makes a query (SQL SELECT) to the database.
         If the query does not fail, the method returns the fetched rows.
+
         :param query: The SQL query to be performed
         :type query: str
         :raises BadDatabaseQuery: The exception is raised when the query is malformed or is not an SQL SELECT
@@ -385,6 +397,7 @@ class Database(DataManager):
     def _parse(self, model_type, rows) -> []:
         '''
         This method parses a list of SQL record into a list of objects whose type is one of those in :class:`ModelType`.
+
         :param model_type: The type of expected resulting object
         :type model_type: ModelType
         :param rows: The list of SQL records to be parsed
@@ -421,6 +434,7 @@ class Database(DataManager):
     def get_category(self, category_id) -> Category:
         """
         This method fetches a single category from the database, given its category identifier.
+
         :param category_id: The category identifier of the category to be fetched.
         :type category_id: int
         :raises CategoryNotFound: Raised when the database query gives an empty result
@@ -438,6 +452,7 @@ class Database(DataManager):
     def get_categories_by_parent_id(self, parent_id) -> []:
         """
         This method fetches from the database all the children categories of a parent category, given the parent category identifier.
+
         :param parent_id: The category identifier of the parent category
         :type parent_id: int
         :return: A list of :class:`Category` object.
@@ -450,6 +465,7 @@ class Database(DataManager):
     def get_series(self, category) -> []:
         """
         This method fetches from the database all the series owned by a category , given the category identifier.
+
         :param category: The category identifier of the category
         :type category: int
         :return: A list of :class:`Series` object.
@@ -462,6 +478,7 @@ class Database(DataManager):
     def get_observables(self, series) -> []:
         """
         This method fetches from the database all the observables of a time series , given the series identifier.
+
         :param series: The series identifier of the series
         :type series: str
         :return: A list of :class:`Series` object.
@@ -474,6 +491,7 @@ class Database(DataManager):
     def _push(self, query):
         """
         This method performs a generic write operation into the database.
+
         :param query: The SQL operation to be performed
         :type query: str
         :raises BadDatabaseQuery: Raised when the specified operation is not a write operation, but it's a read operation.
@@ -491,6 +509,7 @@ class Database(DataManager):
     def insert_category(self, category: Category):
         """
         This method saves a single :class:`Category` object into the database
+
         :param category: The :class:`Category` object to be saved
         :type category: Category
         """
@@ -501,6 +520,7 @@ class Database(DataManager):
     def insert_series(self, series: Series):
         """
         This method saves a single :class:`Series` object into the database
+
         :param series: The :class:`Series` object to be saved
         :type series: Series
         """
@@ -513,6 +533,7 @@ class Database(DataManager):
     def insert_observables(self, observable: Observable):
         """
         This method saves a single :class:`Observable` object into the database
+
         :param observable: The :class:`Observable` object to be saved
         :type observable: Observable
         """
@@ -525,6 +546,7 @@ class Database(DataManager):
     def delete_series(self, series: Series):
         """
         This method deletes a single :class:`Series` object from the database
+
         :param series: The :class:`Series` object to be deleted
         :type series: Series
         """
@@ -536,6 +558,7 @@ class Database(DataManager):
         This method checks if a given :class:`Series` has the last_updated value more recent than its saved copy in the database.
         If the series has not yet been saved in the database or if no observables associated with the series are saved
         in the database, then the series is deemed not up-to-date.
+
         :param series: The series to be checked
         :type series: Series
         :return: True if the series is not up-to-date; False otherwise.
@@ -552,6 +575,7 @@ class Database(DataManager):
     def is_empty_series(self, series: Series) -> bool:
         """
         This method check if no observables are saved in the database for a specific :class:`Series`.
+
         :param series: The series to check the observables for.
         :type series: Series
         :return: True if the series has not associated observables; False, otherwise.
@@ -562,6 +586,7 @@ class Database(DataManager):
     def update_series(self, series: Series, observables: []):
         """
         This method overrides a series and its observables into the database if the series is not up-to-date.
+
         :param series: The series to be updated
         :type series: Series
         :param observables: The list of :class:`Observables` object to associate with the series
@@ -576,6 +601,7 @@ class Database(DataManager):
     def _get_single_series(self, series_id: str) -> Series:
         """
         This method fetches a single :class:`Series` object from the database.
+
         :param series_id: The series identifier of the series to be fetched.
         :type series_id: str
         :raises SeriesNotFound: Raised when the series is not in the database
