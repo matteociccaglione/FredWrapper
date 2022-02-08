@@ -11,14 +11,13 @@ from tree import *
 from typing import List
 import numpy as np
 
-"""
-..autoexception::InvalidOperation
-This exception is thrown when an error occurs while running our API if the requested operation cannot be performed.
-"""
+
 
 
 class InvalidOperation(Exception):
     """
+    This exception is thrown when an error occurs while running our API if the requested operation cannot be performed.
+
     :param mex: A string reporting the reason for the error
     :type mex: str
     """
@@ -31,6 +30,7 @@ def get_children_categories_recursive(parent_category: int, api_key) -> List[Cat
     """
     This function allows to obtain a list of all the sub-categories given an input category using a recursive approach.
     The function returns a Category list and if you want to rebuild a tree structure use the "from_list_to_tree" function.
+
     This function will always download the data from internet and doesn't save it on a database.
     :param parent_category: Category id of the parent category
     :type parent_category: int
@@ -54,6 +54,7 @@ def get_children_categories_iterative(parent_category_id: int, api_key: str, db_
     """
     This function allows to obtain a list of all the sub-categories given an input category using an iterative approach.
     The function returns a Category list and if you want to rebuild a tree structure use the "from_list_to_tree" function.
+
     If the data does not already exist in a database this may take a long time.
     The function uses local data whenever possible and stores data downloaded via the internet in a database.
     :param parent_category: Category id of the parent category
@@ -111,6 +112,7 @@ def get_series(category_id: int, api_key: str, db_name="fred.db") -> List[Series
     """
     This function allows you to obtain all the series associated with a certain category as input.
     This function uses local data whenever possible and stores data downloaded over the internet in a database.
+
     :param category_id: id of the category from which you want to get the series
     :type category_id: int
     :param api_key: A valid Fred API Key
@@ -135,6 +137,7 @@ def update_series(series_id: str, api_key: str, db_name="fred.db") -> bool:
     """
     This function allows you to update a series given its id.
     Use this function to make sure you always have up-to-date data before carrying out your statistical analysis on a series!
+
     :param series_id: The id of the series you want to update
     :type series_id: str
     :param api_key: A valid Fred API Key
@@ -159,6 +162,7 @@ def get_observables(series_id: str, api_key: str, db_name="fred.db") -> List[Obs
     """
     This function allows you to get all the observables given the id of a series.
     The function uses local data if possible and writes all data downloaded via the internet to a database.
+
     :param series_id: Id of the series from which you want to get the data
     :type series_id: str
     :param api_key: A valid Fred API Key
@@ -191,6 +195,7 @@ def get_observables(series_id: str, api_key: str, db_name="fred.db") -> List[Obs
 def update_category(category_id: int, api_key: str, db_name="fred.db") -> bool:
     """
     This function allows you to update all the series linked to a given category.
+
     :param category_id: id of the category from which you want to update the series
     :type category_id: int
     :param api_key: A valid Fred API Key
@@ -213,6 +218,7 @@ def from_list_to_tree(list_of_categories) -> CategoryTree:
     """
     This function allows you to convert a list of categories into a CategoryTree in order to manage access to categories with a tree structure.
     Use this function to construct CategoryTree type objects.
+
     :param list_of_categories: A list of categories that you want to convert into a tree
     :type list_of_categories: List[Category]
     :return: An instance of CategoryTree populated with the data in the list
@@ -226,6 +232,7 @@ def moving_average(series: Series, n: int, api_key, db_name="fred.db") -> List[O
     This function compute the moving average from a given series.
     The function uses local data if possible and saves all data downloaded via the internet to a database.
     The function returns a list of observables modified with the moving average application.
+
     :param series: The series on which you want to calculate the moving average
     :type series: Series
     :param n: An integer representing the period of the moving average
@@ -252,6 +259,7 @@ def prime_differences(series: Series, api_key, db_name="fred.db") -> List[Observ
     This function returns the prime differences series given an input series.
     The function uses local data if possible and saves all data downloaded via the internet to a database.
     The function returns a list of observables modified with the prime differences application.
+
     :param series: The series on which you want to calculate the prime differences
     :type series: Series
     :param api_key: A valid Fred API Key
@@ -274,6 +282,7 @@ def prime_differences_percent(series: Series, api_key, db_name="fred.db") -> Lis
     This function returns the prime percentage differences series given an input series.
     The function uses local data if possible and saves all data downloaded via the internet to a database.
     The function returns a list of observables modified with the prime percentage differences application.
+
     :param series: The series on which you want to calculate the prime percentage differences
     :type series: Series
     :param api_key: A valid Fred API Key
@@ -301,6 +310,7 @@ def compute_covariance(series1: Series, series2: Series, api_key, db_name="fred.
     This function compute the covariance between two series.
     The function uses local data if possible and saves all data downloaded via the internet to a database.
     The function return a numpy ndarray representing the variance covariance matrix.
+
     :param series1: The first series that you want to use for computation
     :type series1: Series
     :param series2: The second series that you want to use for computation
@@ -337,6 +347,7 @@ def linear_regression(series: Series, api_key, db_name="fred.db") -> (float, flo
     The function uses local data if possible and saves all data downloaded via the internet to a database.
     The function returns two elements which are the coefficients b0 and b1 of the following expression for the regression line:
         y = b0 + b1 * x.
+
     :param series: The series whose regression line you want to calculate
     :type series: Series
     :param api_key: A valid Fred API Key

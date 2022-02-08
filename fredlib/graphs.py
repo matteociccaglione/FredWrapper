@@ -27,11 +27,11 @@ The class internally makes use of the matplotlib API for graph representation.
 
 class SeriesGraph:
 
-
     def __init__(self, series: Series, date_list, min_y_value, max_y_value, axis_x_values, axis_y_values):
         """
         Builder of the class.
         Do not instantiate an object of type SeriesGraph using the constructor but use build_series_graph.
+
         :param series: The series that you want to plot.
         :type series: Series
         :param date_list: A list of datetime objects you want to tick on the x-axis
@@ -53,12 +53,11 @@ class SeriesGraph:
         self.axis_y_values = [axis_y_values]
         self.linear_regression = None
 
-
-
     def plot(self, fig_size=(14, 8), dpi=150, xlabel="Dates", ylabel="Values", title=""):
         """
         This method allows the trend of the series to be represented on a graph.
         Note that the method does not make a call to pyplot.show, so you will need to do it when you want to see the graph.
+
         :param fig_size: The size of the matplotlib figure, defaults to (14,8)
         :type fig_size: (int,int)
         :param dpi: The dpi of the graph, defaults to 150
@@ -97,14 +96,13 @@ class SeriesGraph:
             plt.plot(x, y, label="Linear regression", color="black")
         plt.legend(loc="best")
 
-
-
     def merge(self, other_graph):
         """
         This method allows you to merge the data present in a SeriesGraph instance with the current instance.
         Use this method to configure the SeriesGraph object to plot multiple series on a single graph.
         The method chooses the largest range of values between the two series as values to be inserted on the y axis, while as regards the x axis it uses the dates of the second series if this entirely contains the first (i.e. it starts before and ends after ).
         This method does not plot the graph, to view the graph you must invoke the plot method.
+
         :param other_graph: The second graph that you want to merge
         :type other_graph: SeriesGraph
         """
@@ -122,25 +120,23 @@ class SeriesGraph:
         self.axis_x_values.extend(other_graph.axis_x_values)
         self.axis_y_values.extend(other_graph.axis_y_values)
 
-
-
     def merge_multiple_graph(self, *args):
         """
         This method allows you to merge multiple SeriesGraph instances into one.
         For more information see the merge documentation.
+
         :param *args: A varargs of SeriesGraph objects
         :type *args: (SeriesGraph)
         """
         for arg in args:
             self.merge(arg)
 
-
-
     def add_linear_regression(self, b0, b1):
         """
         This method allows you to add a linear regression line to your graph.
         Note that while you can plot multiple plots on one, you can ONLY add a linear regression line.
         Merge operations do not also absorb the linear regression line of the second graph which is therefore lost.
+
         :param b0: The b0 coefficient of the expression y = b0 + b1*x
         :type b0: float
         :param b1: The b1 coefficient of the expression y = b0 + b1*x
@@ -164,14 +160,12 @@ def _sort_observables(observables):
         observables[j + 1] = key
 
 
-
-
-
 def build_series_graph(series: Series, api_key, db_name="fred.db", observables=None) -> SeriesGraph:
     """
     This method allows you to build a SeriesGraph instance.
     By default this method uses as data associated with a series its observables present in the database or on the internet, but if you want you can pass yourself a list of observables that will be used instead of the "official" ones.
     Use this possibility to build other graphs such as moving average, prime difference graphs etc.
+
     :param series: The series of which you want to build a graph
     :type series: Series
     :param api_key: A valid Fred API Key

@@ -7,12 +7,15 @@ from collections import Iterable
 This module contains the CategoryTree class which can be used to represent a list of categories with a tree structure
 """
 
-"""
-This class can be used to represent a list of categories with a tree structure
-"""
+
 
 
 class CategoryTree(Iterable):
+    """
+
+    This class can be used to represent a list of categories with a tree structure
+
+    """
     class _Node:
         """
         ..autoclass: _Node
@@ -37,6 +40,7 @@ class CategoryTree(Iterable):
     def __init__(self, category_list):
         """
         Builder of the class. Do not use the constructor directly but use the from_list_to_tree function.
+
         :param category_list: A list of categories including the parent category (the root of this list)
         :type category_list: List[Category]
         """
@@ -108,6 +112,7 @@ class CategoryTree(Iterable):
         """
         This method returns an object of type Category and can be used with the python [] operator, for example:
         root_category = tree [0]. Returns None if the category is not in the tree
+
         :param item: Must be the category_id of the category that you want to download
         :type item: int
         :return The category requested, None if the category is not in the tree
@@ -129,6 +134,7 @@ class CategoryTree(Iterable):
     def subtree(self, category_id):
         """
         Use this method to build a subtree.
+
         :param category_id: The category_id of the root of the subtree
         :type category_id: int
         :return A CategoryTree object representing the subtree, None if the category_id is not in the tree
@@ -148,6 +154,7 @@ class CategoryTree(Iterable):
         Use this method to print the entire tree on a graph. Each node of the tree will be represented by its category_id.
         The root of the tree is yellow, while the other nodes are blue.
         If you specify an highlighted value then the corresponding value will be red
+
         :param fig_size: A tuple representing the size of the matplotlib figure
         :type (int,int)
         :param dpi: The dpi of the graph
