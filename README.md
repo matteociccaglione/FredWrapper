@@ -2,7 +2,7 @@
 Wrapper for  St. Louis Federal Reserve Bank
 
 ### Docs
-For api documentation visit the following page: https://matteociccaglione.github.io/FredWrapper
+For api documentation visit the following page: https://www.fredlib.software/
 
 ### Installation guide
 
