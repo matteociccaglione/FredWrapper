@@ -20,8 +20,8 @@ _database_configuration = {"tables": ["series", "observables", "categories"],
                                               ("parent_id", "INTEGER")]
                            }}
 
-class BadRequestException(Exception):
 
+class BadRequestException(Exception):
     """
     ..autoexception::BadRequestException
 
@@ -44,6 +44,7 @@ class NotSupportedModelType(Exception):
     :param model_type: One of the element contained in the enum ModelType
     :type model_type: ModelType
     """
+
     def __init__(self, model_type):
         super().__init__("ModelType not supported. Type used: " + str(model_type))
 
@@ -57,6 +58,7 @@ class CategoryNotFound(Exception):
     :param category_id: The ID of the category in FRED
     :type category_id: int
     """
+
     def __init__(self, category_id):
         super().__init__("Category with id " + str(category_id) + " not found")
 
@@ -70,6 +72,7 @@ class BadDatabaseQuery(Exception):
     :param query: The string representing the SQL query
     :type query: str
     """
+
     def __init__(self, query):
         super().__init__("Invalid query: " + str(query))
 
@@ -96,6 +99,7 @@ class DatabaseWritingError(Exception):
     :param error: The error code returned by the database
     :type error: Any
     """
+
     def __init__(self, query, error):
         super().__init__("Query :" + str(query) + " has failed with error:" + str(error))
 
@@ -109,6 +113,7 @@ class SeriesNotFound(Exception):
     :param series_id: The unique identifier of the series in FRED
     :type series_id: str
     """
+
     def __init__(self, series_id):
         super().__init__("Series with id: " + str(series_id) + " not found")
 
@@ -129,6 +134,7 @@ class DataManager:
 
     This is an interface defining the fundamental methods of a DataManager object.
     """
+
     def _get(self, query):
         """
         Private method representing a general retrieval operation.
@@ -174,9 +180,7 @@ class DataManager:
         pass
 
 
-
 class Fred(DataManager):
-
     """
     ..autoclass::Fred
 
@@ -329,7 +333,6 @@ class Fred(DataManager):
         json_object = self._get(url_start + str(category_id))
         categories = self._parse(json_object, ModelType.Category)
         return categories
-
 
 
 class Database(DataManager):
@@ -583,7 +586,7 @@ class Database(DataManager):
         """
         return len(self.get_observables(series.series_id)) == 0
 
-    def update_series(self, series: Series, observables: []):
+    def update_series(self, series: Series, observables: [], force=False):
         """
         This method overrides a series and its observables into the database if the series is not up-to-date.
 
@@ -591,8 +594,10 @@ class Database(DataManager):
         :type series: Series
         :param observables: The list of :class:`Observables` object to associate with the series
         :type observables: List[Observable]
+        :param force: A Boolean flag. Set this flag to true if you want to force the bees to re-download the content from Fred
+        :type force: bool
         """
-        if self.is_new_series(series):
+        if self.is_new_series(series) or force:
             self.delete_series(series)
         self.insert_series(series)
         for obs in observables:

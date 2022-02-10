@@ -12,8 +12,6 @@ from typing import List
 import numpy as np
 
 
-
-
 class InvalidOperation(Exception):
     """
     This exception is thrown when an error occurs while running our API if the requested operation cannot be performed.
@@ -135,7 +133,7 @@ def get_series(category_id: int, api_key: str, db_name="fred.db") -> List[Series
     return series
 
 
-def update_series(series_id: str, api_key: str, db_name="fred.db") -> bool:
+def update_series(series_id: str, api_key: str, db_name="fred.db", force=False) -> bool:
     """
     This function allows you to update a series given its id.
     Use this function to make sure you always have up-to-date data before carrying out your statistical analysis on a series!
@@ -146,6 +144,8 @@ def update_series(series_id: str, api_key: str, db_name="fred.db") -> bool:
     :type api_key: str
     :param db_name: The name of the database you want to use, defaults to fred.db
     :type db_name: str
+    :param force: A Boolean flag. Set this flag to true if you want to force the bees to re-download the content from Fred
+    :type force: bool
     :raises BadRequestException: This exception is thrown when an error occurs during http communication
     :return: The function returns a boolean which is true if the series has been updated, false otherwise. Note that if the local data is already updated the function will return false
     :rtype: bool
@@ -153,9 +153,9 @@ def update_series(series_id: str, api_key: str, db_name="fred.db") -> bool:
     fred = Fred(api_key)
     database = Database(db_name)
     series = fred.get_single_series(series_id)
-    if database.is_new_series(series):
+    if database.is_new_series(series) or force:
         obs = fred.get_observables(series.series_id)
-        database.update_series(series, obs)
+        database.update_series(series, obs, force)
         return True
     return False
 
@@ -194,7 +194,7 @@ def get_observables(series_id: str, api_key: str, db_name="fred.db") -> List[Obs
     return result
 
 
-def update_category(category_id: int, api_key: str, db_name="fred.db") -> bool:
+def update_category(category_id: int, api_key: str, db_name="fred.db", force=False) -> bool:
     """
     This function allows you to update all the series linked to a given category.
 
@@ -204,6 +204,8 @@ def update_category(category_id: int, api_key: str, db_name="fred.db") -> bool:
     :type api_key: str
     :param db_name: The name of the database you want to use, defaults to fred.db
     :type db_name: str
+    :param force: A Boolean flag. Set this flag to true if you want to force the bees to re-download the content from Fred
+    :type force: bool
     :raises BadRequestException: This exception is thrown when an error occurs during http communication
     :return: The function returns a boolean which is true if all the series has been updated, false otherwise. Note that if one of the local data is already updated the function will return false
     :rtype: bool
@@ -212,7 +214,7 @@ def update_category(category_id: int, api_key: str, db_name="fred.db") -> bool:
     series = fred.get_series(category_id)
     result = True
     for ser in series:
-        result = result and update_series(ser.series_id, api_key, db_name)
+        result = result and update_series(ser.series_id, api_key, db_name=db_name, force=force)
     return result
 
 
