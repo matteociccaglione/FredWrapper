@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to fredlib’s documentation! &mdash; fredlib 1.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> fredlib
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Welcome to fredlib’s documentation!</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">fredlib</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>Welcome to fredlib’s documentation!</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="welcome-to-fredlib-s-documentation">
+<h1>Welcome to fredlib’s documentation!<a class="headerlink" href="#welcome-to-fredlib-s-documentation" title="Permalink to this headline"></a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<span class="target" id="module-fredlib._core"></span><dl class="py exception">
+<dt class="sig sig-object py" id="fredlib._core.BadDatabaseQuery">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fredlib._core.</span></span><span class="sig-name descname"><span class="pre">BadDatabaseQuery</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.BadDatabaseQuery" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>This exception is raised when a malformed or invalid database query is executed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query</strong> (<em>str</em>) – The string representing the SQL query</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="fredlib._core.BadRequestException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fredlib._core.</span></span><span class="sig-name descname"><span class="pre">BadRequestException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">status_code</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.BadRequestException" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>This exception is raised when an HTTP request fails.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>status_code</strong> (<em>int</em>) – An integer representing the HTTP error code</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="fredlib._core.CategoryNotFound">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fredlib._core.</span></span><span class="sig-name descname"><span class="pre">CategoryNotFound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.CategoryNotFound" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>This exception is raised when the retrieval of a category from a database or through the use of FRED’s API gives an empty result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>category_id</strong> (<em>int</em>) – The ID of the category in FRED</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fredlib._core.DataManager">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fredlib._core.</span></span><span class="sig-name descname"><span class="pre">DataManager</span></span><a class="headerlink" href="#fredlib._core.DataManager" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This is an interface defining the fundamental methods of a DataManager object.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.DataManager._get">
+<span class="sig-name descname"><span class="pre">_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.DataManager._get" title="Permalink to this definition"></a></dt>
+<dd><p>Private method representing a general retrieval operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query</strong> (<em>str</em>) – The query to be performed</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The result of the query.</p>
+</dd>
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.DataManager.get_category">
+<span class="sig-name descname"><span class="pre">get_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category_id</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="docs/fredlib.html#fredlib.model.Category" title="fredlib.model.Category"><span class="pre">model.Category</span></a></span></span><a class="headerlink" href="#fredlib._core.DataManager.get_category" title="Permalink to this definition"></a></dt>
+<dd><p>Method used to retrieve a Category, given its category id.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>category_id</strong> (<em>int</em>) – The unique identifier of the category in FRED.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The desired Category object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="docs/fredlib.html#fredlib.model.Category" title="fredlib.model.Category">Category</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.DataManager.get_observables">
+<span class="sig-name descname"><span class="pre">get_observables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#fredlib._core.DataManager.get_observables" title="Permalink to this definition"></a></dt>
+<dd><p>Method used to retrieve a list of Observables, given the series id of the time series they belong to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series</strong> (<em>str</em>) – The unique identifier of the series in FRED.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of the desired Observable objects.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="docs/fredlib.html#fredlib.model.Observable" title="fredlib.model.Observable">Observable</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.DataManager.get_series">
+<span class="sig-name descname"><span class="pre">get_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#fredlib._core.DataManager.get_series" title="Permalink to this definition"></a></dt>
+<dd><p>Method used to retrieve a list of Series, given the category id of the category they belong to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>category</strong> (<em>int</em>) – The unique identifier of the category in FRED.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The list of the desired Series objects.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series">Series</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fredlib._core.Database">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fredlib._core.</span></span><span class="sig-name descname"><span class="pre">Database</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.Database" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#fredlib._core.DataManager" title="fredlib._core.DataManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">fredlib._core.DataManager</span></code></a></p>
+<p>This class is used to interact with an SQLite database.
+Its main purpose is to write data downloaded from FRED into a local database.
+It also allows to fetch the saved data from the database, parsing them into appropriate objects.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database._get">
+<span class="sig-name descname"><span class="pre">_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.Database._get" title="Permalink to this definition"></a></dt>
+<dd><p>This private method makes a query (SQL SELECT) to the database.
+If the query does not fail, the method returns the fetched rows.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query</strong> (<em>str</em>) – The SQL query to be performed</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#fredlib._core.BadDatabaseQuery" title="fredlib._core.BadDatabaseQuery"><strong>BadDatabaseQuery</strong></a> – The exception is raised when the query is malformed or is not an SQL SELECT</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of SQL records</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database._get_single_series">
+<span class="sig-name descname"><span class="pre">_get_single_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series"><span class="pre">model.Series</span></a></span></span><a class="headerlink" href="#fredlib._core.Database._get_single_series" title="Permalink to this definition"></a></dt>
+<dd><p>This method fetches a single <code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code> object from the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series_id</strong> (<em>str</em>) – The series identifier of the series to be fetched.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#fredlib._core.SeriesNotFound" title="fredlib._core.SeriesNotFound"><strong>SeriesNotFound</strong></a> – Raised when the series is not in the database</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The retrieved <code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code> object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series">Series</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database._parse">
+<span class="sig-name descname"><span class="pre">_parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rows</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#fredlib._core.Database._parse" title="Permalink to this definition"></a></dt>
+<dd><p>This method parses a list of SQL record into a list of objects whose type is one of those in <a class="reference internal" href="#fredlib._core.ModelType" title="fredlib._core.ModelType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelType</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_type</strong> (<a class="reference internal" href="#fredlib._core.ModelType" title="fredlib._core.ModelType"><em>ModelType</em></a>) – The type of expected resulting object</p></li>
+<li><p><strong>rows</strong> (<em>List</em><em>[</em><em>Any</em><em>]</em>) – The list of SQL records to be parsed</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#fredlib._core.NotSupportedModelType" title="fredlib._core.NotSupportedModelType"><strong>NotSupportedModelType</strong></a> – The exception is raised when the model_type parameter is not one of the enum <a class="reference internal" href="#fredlib._core.ModelType" title="fredlib._core.ModelType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelType</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of the requested objects.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database._push">
+<span class="sig-name descname"><span class="pre">_push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.Database._push" title="Permalink to this definition"></a></dt>
+<dd><p>This method performs a generic write operation into the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query</strong> (<em>str</em>) – The SQL operation to be performed</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference internal" href="#fredlib._core.BadDatabaseQuery" title="fredlib._core.BadDatabaseQuery"><strong>BadDatabaseQuery</strong></a> – Raised when the specified operation is not a write operation, but it’s a read operation.</p></li>
+<li><p><a class="reference internal" href="#fredlib._core.DatabaseWritingError" title="fredlib._core.DatabaseWritingError"><strong>DatabaseWritingError</strong></a> – Raised when the writing operation generates an error into the database</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database.delete_series">
+<span class="sig-name descname"><span class="pre">delete_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series"><span class="pre">model.Series</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.Database.delete_series" title="Permalink to this definition"></a></dt>
+<dd><p>This method deletes a single <code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code> object from the database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series</strong> (<a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series"><em>Series</em></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code> object to be deleted</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database.destroy">
+<span class="sig-name descname"><span class="pre">destroy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.Database.destroy" title="Permalink to this definition"></a></dt>
+<dd><p>This method closes the connection with the database.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database.get_categories_by_parent_id">
+<span class="sig-name descname"><span class="pre">get_categories_by_parent_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_id</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#fredlib._core.Database.get_categories_by_parent_id" title="Permalink to this definition"></a></dt>
+<dd><p>This method fetches from the database all the children categories of a parent category, given the parent category identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>parent_id</strong> (<em>int</em>) – The category identifier of the parent category</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Category</span></code> object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="docs/fredlib.html#fredlib.model.Category" title="fredlib.model.Category">Category</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database.get_category">
+<span class="sig-name descname"><span class="pre">get_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category_id</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="docs/fredlib.html#fredlib.model.Category" title="fredlib.model.Category"><span class="pre">model.Category</span></a></span></span><a class="headerlink" href="#fredlib._core.Database.get_category" title="Permalink to this definition"></a></dt>
+<dd><p>This method fetches a single category from the database, given its category identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>category_id</strong> (<em>int</em>) – The category identifier of the category to be fetched.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#fredlib._core.CategoryNotFound" title="fredlib._core.CategoryNotFound"><strong>CategoryNotFound</strong></a> – Raised when the database query gives an empty result</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">Category</span></code> object representing the fetched category</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="docs/fredlib.html#fredlib.model.Category" title="fredlib.model.Category">Category</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database.get_observables">
+<span class="sig-name descname"><span class="pre">get_observables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#fredlib._core.Database.get_observables" title="Permalink to this definition"></a></dt>
+<dd><p>This method fetches from the database all the observables of a time series , given the series identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series</strong> (<em>str</em>) – The series identifier of the series</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code> object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series">Series</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database.get_series">
+<span class="sig-name descname"><span class="pre">get_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#fredlib._core.Database.get_series" title="Permalink to this definition"></a></dt>
+<dd><p>This method fetches from the database all the series owned by a category , given the category identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>category</strong> (<em>int</em>) – The category identifier of the category</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code> object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series">Series</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database.insert_category">
+<span class="sig-name descname"><span class="pre">insert_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="docs/fredlib.html#fredlib.model.Category" title="fredlib.model.Category"><span class="pre">model.Category</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.Database.insert_category" title="Permalink to this definition"></a></dt>
+<dd><p>This method saves a single <code class="xref py py-class docutils literal notranslate"><span class="pre">Category</span></code> object into the database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>category</strong> (<a class="reference internal" href="docs/fredlib.html#fredlib.model.Category" title="fredlib.model.Category"><em>Category</em></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Category</span></code> object to be saved</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database.insert_observables">
+<span class="sig-name descname"><span class="pre">insert_observables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">observable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="docs/fredlib.html#fredlib.model.Observable" title="fredlib.model.Observable"><span class="pre">model.Observable</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.Database.insert_observables" title="Permalink to this definition"></a></dt>
+<dd><p>This method saves a single <code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code> object into the database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>observable</strong> (<a class="reference internal" href="docs/fredlib.html#fredlib.model.Observable" title="fredlib.model.Observable"><em>Observable</em></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Observable</span></code> object to be saved</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database.insert_series">
+<span class="sig-name descname"><span class="pre">insert_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series"><span class="pre">model.Series</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.Database.insert_series" title="Permalink to this definition"></a></dt>
+<dd><p>This method saves a single <code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code> object into the database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series</strong> (<a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series"><em>Series</em></a>) – The <code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code> object to be saved</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database.is_empty_series">
+<span class="sig-name descname"><span class="pre">is_empty_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series"><span class="pre">model.Series</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#fredlib._core.Database.is_empty_series" title="Permalink to this definition"></a></dt>
+<dd><p>This method check if no observables are saved in the database for a specific <code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series</strong> (<a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series"><em>Series</em></a>) – The series to check the observables for.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the series has not associated observables; False, otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database.is_new_series">
+<span class="sig-name descname"><span class="pre">is_new_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series"><span class="pre">model.Series</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#fredlib._core.Database.is_new_series" title="Permalink to this definition"></a></dt>
+<dd><p>This method checks if a given <code class="xref py py-class docutils literal notranslate"><span class="pre">Series</span></code> has the last_updated value more recent than its saved copy in the database.
+If the series has not yet been saved in the database or if no observables associated with the series are saved
+in the database, then the series is deemed not up-to-date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series</strong> (<a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series"><em>Series</em></a>) – The series to be checked</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the series is not up-to-date; False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Database.update_series">
+<span class="sig-name descname"><span class="pre">update_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series"><span class="pre">model.Series</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">observables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.Database.update_series" title="Permalink to this definition"></a></dt>
+<dd><p>This method overrides a series and its observables into the database if the series is not up-to-date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>series</strong> (<a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series"><em>Series</em></a>) – The series to be updated</p></li>
+<li><p><strong>observables</strong> (<em>List</em><em>[</em><a class="reference internal" href="docs/fredlib.html#fredlib.model.Observable" title="fredlib.model.Observable"><em>Observable</em></a><em>]</em>) – The list of <code class="xref py py-class docutils literal notranslate"><span class="pre">Observables</span></code> object to associate with the series</p></li>
+<li><p><strong>force</strong> (<em>bool</em>) – A Boolean flag. Set this flag to true if you want to force the bees to re-download the content from Fred</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="fredlib._core.DatabaseWritingError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fredlib._core.</span></span><span class="sig-name descname"><span class="pre">DatabaseWritingError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.DatabaseWritingError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>This exception is raised when a database internal error occurs, following a write operation in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<em>str</em>) – The string representing the SQL operation that caused the raising of the exception</p></li>
+<li><p><strong>error</strong> (<em>Any</em>) – The error code returned by the database</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fredlib._core.Fred">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fredlib._core.</span></span><span class="sig-name descname"><span class="pre">Fred</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.Fred" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#fredlib._core.DataManager" title="fredlib._core.DataManager"><code class="xref py py-class docutils literal notranslate"><span class="pre">fredlib._core.DataManager</span></code></a></p>
+<p>This class is used to interact with FRED’s services.
+It makes HTTP requests in order to retrieve the desired data in json format.
+It also parses json responses, building the appropriate <a class="reference internal" href="#fredlib._core.ModelType" title="fredlib._core.ModelType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelType</span></code></a> object representing the data.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Fred._get">
+<span class="sig-name descname"><span class="pre">_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.Fred._get" title="Permalink to this definition"></a></dt>
+<dd><p>This private method makes a query to FRED’s services;
+if the request does not fail, the method returns a json object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>query</strong> (<em>str</em>) – The initial URL part of the query to FRED’s services, without specifying the API key</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#fredlib._core.BadRequestException" title="fredlib._core.BadRequestException"><strong>BadRequestException</strong></a> – The method throws an exception if the request fails</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The json object resulting from the query</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Fred._parse">
+<span class="sig-name descname"><span class="pre">_parse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elem_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#fredlib._core.Fred._parse" title="Permalink to this definition"></a></dt>
+<dd><p>This method parses a json object into a list of objects whose type is one of those in <a class="reference internal" href="#fredlib._core.ModelType" title="fredlib._core.ModelType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelType</span></code></a>.
+When parsing observables, only those that have no NaN value are kept.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>json_object</strong> (<em>str</em>) – The JSON document to be parsed</p></li>
+<li><p><strong>model_type</strong> (<a class="reference internal" href="#fredlib._core.ModelType" title="fredlib._core.ModelType"><em>ModelType</em></a>) – The type of expected resulting object</p></li>
+<li><p><strong>elem_id</strong> (<em>int</em>) – It represents the category [resp. series] identifier to which a Series [resp. Observable] belongs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#fredlib._core.NotSupportedModelType" title="fredlib._core.NotSupportedModelType"><strong>NotSupportedModelType</strong></a> – The exception is raised when the model_type parameter is not one of the enum <a class="reference internal" href="#fredlib._core.ModelType" title="fredlib._core.ModelType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelType</span></code></a>.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of the requested objects.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Fred.get_category">
+<span class="sig-name descname"><span class="pre">get_category</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category_id</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="docs/fredlib.html#fredlib.model.Category" title="fredlib.model.Category"><span class="pre">model.Category</span></a></span></span><a class="headerlink" href="#fredlib._core.Fred.get_category" title="Permalink to this definition"></a></dt>
+<dd><p>This method retrieves a single category from FRED archive, given its category identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>category_id</strong> (<em>int</em>) – The category unique identifier of the category to be retrieved from FERD</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#fredlib._core.CategoryNotFound" title="fredlib._core.CategoryNotFound"><strong>CategoryNotFound</strong></a> – Raised when a category with such a category identifier does not exist in FRED archive</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The retrieved category object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="docs/fredlib.html#fredlib.model.Category" title="fredlib.model.Category">Category</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Fred.get_category_children">
+<span class="sig-name descname"><span class="pre">get_category_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category_id</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#fredlib._core.Fred.get_category_children" title="Permalink to this definition"></a></dt>
+<dd><p>This method retrieves the children categories of a category in the FRED’s category tree hierarchy, given the identifier of the parent category.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>category_id</strong> (<em>int</em>) – The category identifier of the parent category</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing the retrieved categories. If the parent category has no children, the resulting list is empty.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="docs/fredlib.html#fredlib.model.Category" title="fredlib.model.Category">Category</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Fred.get_observables">
+<span class="sig-name descname"><span class="pre">get_observables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#fredlib._core.Fred.get_observables" title="Permalink to this definition"></a></dt>
+<dd><p>This method retrieves all the observables, except those with a NaN value, of a time series from FRED archive, given the series identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series</strong> (<em>str</em>) – The series unique identifier of the series of which retrieve the observables</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing the retrieved observables. If no observable exists for the specified series, the resulting list is empty.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="docs/fredlib.html#fredlib.model.Observable" title="fredlib.model.Observable">Observable</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Fred.get_series">
+<span class="sig-name descname"><span class="pre">get_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">category</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#fredlib._core.Fred.get_series" title="Permalink to this definition"></a></dt>
+<dd><p>This method retrieves all the series under a given category from FRED archive, given the category identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>category</strong> (<em>int</em>) – The category unique identifier of the category of which retrieve the series</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list containing the retrieved series. If no series exists under the specified category, the resulting list is empty.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series">Series</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="fredlib._core.Fred.get_single_series">
+<span class="sig-name descname"><span class="pre">get_single_series</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series_id</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series"><span class="pre">model.Series</span></a></span></span><a class="headerlink" href="#fredlib._core.Fred.get_single_series" title="Permalink to this definition"></a></dt>
+<dd><p>This method retrieves a single series from FRED archive, given its series identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series_id</strong> (<em>str</em>) – The series unique identifier of the series to be retrieved from FERD</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference internal" href="#fredlib._core.SeriesNotFound" title="fredlib._core.SeriesNotFound"><strong>SeriesNotFound</strong></a> – Raised when a series with such a series identifier does not exist in FRED archive</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The retrieved series object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="docs/fredlib.html#fredlib.model.Series" title="fredlib.model.Series">Series</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="fredlib._core.ModelType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fredlib._core.</span></span><span class="sig-name descname"><span class="pre">ModelType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.ModelType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>This is an enumeration of the model’s classes used in fredlib, representing the various data stored by FRED.
+They are: Category, Series, Observable</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fredlib._core.ModelType.Category">
+<span class="sig-name descname"><span class="pre">Category</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#fredlib._core.ModelType.Category" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fredlib._core.ModelType.Observable">
+<span class="sig-name descname"><span class="pre">Observable</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#fredlib._core.ModelType.Observable" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="fredlib._core.ModelType.Series">
+<span class="sig-name descname"><span class="pre">Series</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#fredlib._core.ModelType.Series" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="fredlib._core.NotSupportedModelType">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fredlib._core.</span></span><span class="sig-name descname"><span class="pre">NotSupportedModelType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.NotSupportedModelType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>This exception is raised when an invalid ModelType object is passed to a method or function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>model_type</strong> (<a class="reference internal" href="#fredlib._core.ModelType" title="fredlib._core.ModelType"><em>ModelType</em></a>) – One of the element contained in the enum ModelType</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="fredlib._core.NotSupportedOperation">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fredlib._core.</span></span><span class="sig-name descname"><span class="pre">NotSupportedOperation</span></span><a class="headerlink" href="#fredlib._core.NotSupportedOperation" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>This exception is raised when trying to perform an unsupported operation.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="fredlib._core.SeriesNotFound">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">fredlib._core.</span></span><span class="sig-name descname"><span class="pre">SeriesNotFound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#fredlib._core.SeriesNotFound" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>This exception is raised when the retrieval of a series from a database or through the use of FRED’s API gives an empty result.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>series_id</strong> (<em>str</em>) – The unique identifier of the series in FRED</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, The Walking Thread 2.0.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
