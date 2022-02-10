@@ -18,8 +18,6 @@ class CategoryTree(Iterable):
     """
     class _Node:
         """
-        ..autoclass:: _Node
-
         This class is private and undocumented, you must not use this class
         """
 
