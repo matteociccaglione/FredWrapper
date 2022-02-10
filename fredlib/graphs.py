@@ -6,26 +6,25 @@ from api import *
 import numpy as np
 import math
 
-"""
-..autoexception::NotPlottableSeries
-This exception is thrown when you try to plot a series that does not have an observable_start and observable_end value or 
-that contains at most one observable.
-"""
-
 
 class NotPlottableSeries(Exception):
+    """
+    ..autoexception::NotPlottableSeries
+
+    This exception is thrown when you try to plot a series that does not have an observable_start and observable_end value or
+    that contains at most one observable.
+    """
     def __init__(self, series):
         super().__init__("Series: " + str(series) + "is not plottable")
 
 
-"""
-This class allows you to graph the progress of a series without getting your hands dirty with the matplotlib API.
-Do not build this class directly but use the build_series_graph function to instantiate an object of type SeriesGraph.
-The class internally makes use of the matplotlib API for graph representation.
-"""
-
 
 class SeriesGraph:
+    """
+    This class allows you to graph the progress of a series without getting your hands dirty with the matplotlib API.
+    Do not build this class directly but use the build_series_graph function to instantiate an object of type SeriesGraph.
+    The class internally makes use of the matplotlib API for graph representation.
+    """
 
     def __init__(self, series: Series, date_list, min_y_value, max_y_value, axis_x_values, axis_y_values):
         """
@@ -125,8 +124,8 @@ class SeriesGraph:
         This method allows you to merge multiple SeriesGraph instances into one.
         For more information see the merge documentation.
 
-        :param *args: A varargs of SeriesGraph objects
-        :type *args: (SeriesGraph)
+        :param args: A varargs of SeriesGraph objects
+        :type args: (SeriesGraph)
         """
         for arg in args:
             self.merge(arg)
@@ -163,7 +162,7 @@ def _sort_observables(observables):
 def build_series_graph(series: Series, api_key, db_name="fred.db", observables=None) -> SeriesGraph:
     """
     This method allows you to build a SeriesGraph instance.
-    By default this method uses as data associated with a series its observables present in the database or on the internet, but if you want you can pass yourself a list of observables that will be used instead of the "official" ones.
+    By default, this method uses as data associated with a series its observables present in the database or on the internet, but if you want you can pass yourself a list of observables that will be used instead of the "official" ones.
     Use this possibility to build other graphs such as moving average, prime difference graphs etc.
 
     :param series: The series of which you want to build a graph
@@ -176,8 +175,8 @@ def build_series_graph(series: Series, api_key, db_name="fred.db", observables=N
     :type observables: List[Observables]
     :raises BadRequestException: This exception is thrown when an error occurs during http communication
     :raises NotPlottableSeries: This exception is thrown when you try to build a graph for a non plottable series. For more information see the documentation of NotPlottableSeries
-
     """
+
     if observables is None:
         observables = []
     if str(series.observation_start) == "1776-07-04" and series.observation_end == "9999-12-31":

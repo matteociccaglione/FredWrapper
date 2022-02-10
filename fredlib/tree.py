@@ -18,7 +18,8 @@ class CategoryTree(Iterable):
     """
     class _Node:
         """
-        ..autoclass: _Node
+        ..autoclass:: _Node
+
         This class is private and undocumented, you must not use this class
         """
 
@@ -115,7 +116,7 @@ class CategoryTree(Iterable):
 
         :param item: Must be the category_id of the category that you want to download
         :type item: int
-        :return The category requested, None if the category is not in the tree
+        :return: The category requested, None if the category is not in the tree
         :rtype: Category
         """
         result = self.__get_node(item)
@@ -137,9 +138,10 @@ class CategoryTree(Iterable):
 
         :param category_id: The category_id of the root of the subtree
         :type category_id: int
-        :return A CategoryTree object representing the subtree, None if the category_id is not in the tree
+        :return: A CategoryTree object representing the subtree, None if the category_id is not in the tree
         :rtype: CategoryTree
         """
+
         node = self.__get_node(category_id)
         if node is not None:
             list_of_nodes = self.__to_list(node)
@@ -149,19 +151,20 @@ class CategoryTree(Iterable):
     def __len__(self):
         return self.count
 
-    def plot(self, fig_size=(14, 14), dpi=100, highlighted=None):
+    def plot(self, fig_size=(14, 14), dpi:int=100, highlighted=None):
         """
         Use this method to print the entire tree on a graph. Each node of the tree will be represented by its category_id.
         The root of the tree is yellow, while the other nodes are blue.
-        If you specify an highlighted value then the corresponding value will be red
+        If you specify a highlighted value then the corresponding value will be red
 
         :param fig_size: A tuple representing the size of the matplotlib figure
-        :type (int,int)
+        :type fig_size: (int,int)
         :param dpi: The dpi of the graph
-        :type int
+        :type dpi: int
         :param highlighted: The category that you want to highlight, it will be drawn in red, defaults to None
         :type highlighted: Category
         """
+
         plt.figure(figsize=fig_size, dpi=dpi)
         color_map = []
         for node in self._G:

@@ -350,7 +350,7 @@ def linear_regression(series: Series, api_key, db_name="fred.db") -> (float, flo
     This function allows to calculate the coefficients of a regression line given an input series.
     The function uses local data if possible and saves all data downloaded via the internet to a database.
     The function returns two elements which are the coefficients b0 and b1 of the following expression for the regression line:
-        y = b0 + b1 * x.
+    **y = b0 + b1 * x**.
 
     :param series: The series whose regression line you want to calculate
     :type series: Series
