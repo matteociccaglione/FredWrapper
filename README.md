@@ -1,3 +1,4 @@
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)  [![made-with-sphinx-doc](https://img.shields.io/badge/Made%20with-Sphinx-1f425f.svg)](https://www.sphinx-doc.org/)  [![Documentation Status](https://readthedocs.org/projects/ansicolortags/badge/?version=latest)](https://www.fredlib.software/) 
 # FredWrapper
 Wrapper for  St. Louis Federal Reserve Bank
 
