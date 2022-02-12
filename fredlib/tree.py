@@ -1,11 +1,12 @@
+"""
+This module contains the CategoryTree class which can be used to represent a list of categories with a tree structure
+"""
+
 import networkx as nx
 from matplotlib import pyplot as plt
 from collections import Iterable
 
-"""
-..automodule: tree
-This module contains the CategoryTree class which can be used to represent a list of categories with a tree structure
-"""
+
 
 
 

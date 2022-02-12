@@ -1,4 +1,11 @@
+"""
+This module contains the classes used by our API to represent FRED-specific objects, namely Categories, Series and Observables.
+All data obtained thanks to our API are represented using one of these classes (the suitable one).
+
+"""
+
 import enum
+
 
 class Frequency(enum.Enum):
     """
@@ -31,9 +38,9 @@ class Frequency(enum.Enum):
         elif self is Frequency.Monthly:
             return 30
         elif self is Frequency.Quarterly:
-            return 30*4
+            return 30 * 4
         elif self is Frequency.Semiannual:
-            return 30*6
+            return 30 * 6
         elif self is Frequency.Annual:
             return 365
 
@@ -42,6 +49,8 @@ class Frequency(enum.Enum):
 ..autoclass::Category
 This class represents a Category as intended by FRED
 """
+
+
 class Category:
     """
     ..autoclass::Category
@@ -67,14 +76,15 @@ class Category:
         return "Name: " + self.name + " ID: " + str(self.category_id) + " Parent id:" + str(self.parent_id)
 
 
-
 class Series:
     """
     ..autoclass::Series
 
     This class represents a Series as intended by FRED
     """
-    def __init__(self, series_id, title, last_updated, observation_start, observation_end, frequency_short: str, category_id=0):
+
+    def __init__(self, series_id, title, last_updated, observation_start, observation_end, frequency_short: str,
+                 category_id=0):
         """
 
         :param series_id: Unique identifier of the series
@@ -113,12 +123,11 @@ class Series:
         elif frequency_short.startswith("a"):
             self.frequency_short = Frequency.Annual
 
-
     def __str__(self):
         return "ID-> " + str(self.series_id) + " Title-> " + self.title + " Last update-> " + str(
             self.last_updated) + " Observation start -> " + str(self.observation_start) + " Observation end -> " + str(
-            self.observation_end) + " Frequency-> " + str(self.frequency_short) + " Category ID-> " + str(self.category_id)
-
+            self.observation_end) + " Frequency-> " + str(self.frequency_short) + " Category ID-> " + str(
+            self.category_id)
 
 
 class Observable:

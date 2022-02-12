@@ -1,3 +1,7 @@
+"""
+This module contains classes and functions for the graphic representation of one or more series and its data.
+"""
+
 from typing import List
 from matplotlib import pyplot as plt
 from model import *

@@ -1,3 +1,12 @@
+"""..automodule::_core
+
+This module is private. Contains the definitions of classes and exceptions that represent the
+core of the fredlib package. All the functions present in the "api" module allow you to interact with these classes
+indirectly. Our suggestion is to use only the functions provided in the "api" module, but if you want to build your
+own functions and use our package for interacting with fred please read this documentation carefully.
+
+"""
+
 import enum
 from model import *
 import requests
