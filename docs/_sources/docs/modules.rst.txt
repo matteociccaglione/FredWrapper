@@ -1,7 +1,0 @@
-fredlib
-=======
-
-.. toctree::
-   :maxdepth: 4
-
-   fredlib
