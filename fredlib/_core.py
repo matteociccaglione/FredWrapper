@@ -1,10 +1,8 @@
-"""..automodule::_core
-
+"""
 This module is private. Contains the definitions of classes and exceptions that represent the
 core of the fredlib package. All the functions present in the "api" module allow you to interact with these classes
 indirectly. Our suggestion is to use only the functions provided in the "api" module, but if you want to build your
 own functions and use our package for interacting with fred please read this documentation carefully.
-
 """
 
 import enum
@@ -603,7 +601,7 @@ class Database(DataManager):
         :type series: Series
         :param observables: The list of :class:`Observables` object to associate with the series
         :type observables: List[Observable]
-        :param force: A Boolean flag. Set this flag to true if you want to force the bees to re-download the content from Fred
+        :param force: A Boolean flag. Set this flag to true if you want to force the API to re-download the content from Fred
         :type force: bool
         """
         if self.is_new_series(series) or force:
