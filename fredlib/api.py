@@ -141,7 +141,7 @@ def update_series(series_id: str, api_key: str, db_name="fred.db", force=False) 
     :type api_key: str
     :param db_name: The name of the database you want to use, defaults to fred.db
     :type db_name: str
-    :param force: A Boolean flag. Set this flag to true if you want to force the bees to re-download the content from Fred
+    :param force: A Boolean flag. Set this flag to true if you want to force the API to re-download the content from Fred
     :type force: bool
     :raises BadRequestException: This exception is thrown when an error occurs during http communication
     :return: The function returns a boolean which is true if the series has been updated, false otherwise. Note that if the local data is already updated the function will return false
@@ -202,7 +202,7 @@ def update_category(category_id: int, api_key: str, db_name="fred.db", force=Fal
     :type api_key: str
     :param db_name: The name of the database you want to use, defaults to fred.db
     :type db_name: str
-    :param force: A Boolean flag. Set this flag to true if you want to force the bees to re-download the content from Fred
+    :param force: A Boolean flag. Set this flag to true if you want to force the API to re-download the content from Fred
     :type force: bool
     :raises BadRequestException: This exception is thrown when an error occurs during http communication
     :return: The function returns a boolean which is true if all the series has been updated, false otherwise. Note that if one of the local data is already updated the function will return false
