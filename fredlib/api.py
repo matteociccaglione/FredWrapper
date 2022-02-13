@@ -244,10 +244,13 @@ def moving_average(series: Series, n: int, api_key, db_name="fred.db") -> List[O
     :param db_name: The name of the database you want to use, defaults to fred.db
     :type db_name: str
     :raises BadRequestException: This exception is thrown when an error occurs during http communication
+    :raises InvalidOperation: This exception is thrown if you try to compute a moving average using  a value greater than the number of values in the requested series as the period
     :return: A list of observables modified with the moving average
     :rtype: List[Observable]
     """
     values = get_observables(series.series_id, api_key, db_name)
+    if n > len(values):
+        raise InvalidOperation("You want to compute a moving average on a period of: "+str(n)+" but the series has only "+ str(len(values))+" values")
     for i in range(0, len(values) - n + 1):
         mean = 0
         for j in range(0, n):
